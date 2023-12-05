@@ -5,6 +5,12 @@ trigger:
     include:
       - master
       
+variables:
+           API_URL: $()
+           WEB_URL: $()
+           USERNAME: $()
+           PASSWORD: $()      
+      
 jobs:
   - job: Agent_job
     timeoutInMinutes: 60
@@ -28,6 +34,7 @@ jobs:
       - script: |
           QASE_REPORT=1 QASE_RUN_NAME=End2End npx playwright test --project ui --project api --headed
         displayName: "Run Playwright tests"
+        
 
       - publish: $(Build.SourcesDirectory)/playwright-report
         displayName: "Publish report"
