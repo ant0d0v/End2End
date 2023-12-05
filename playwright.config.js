@@ -3,10 +3,10 @@ const { defineConfig, devices } = require("@playwright/test");
 
 
 const qaseConfig = {
-  apiToken: 'd7517d0c2dc7a115756c1bd5666180768965912c7b00c3f38d821d27469e6260',
-  projectCode: 'SWISSCOWS',
+  apiToken: "983b5c6381d86561c2b06f83421094d2eb8f503cbf7e27c0e07bcd8b4ee3e75c",
+  projectCode: "SWISSCOWS",
   runComplete: true,
-  basePath: 'https://api.qase.io/v1',
+  basePath: "https://api.qase.io/v1",
   logging: true,
   uploadAttachments: true,
   environmentId: 1,
