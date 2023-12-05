@@ -1,0 +1,32 @@
+
+{
+    "searchCriteria": {
+        "criteria": "ivanka"
+    },
+    "url": {
+        "extensionGoogleInstall" : "/detail/swisscows/ibimaeimnogcdnjmmlpodbhhbejnpaij\\?hl=en.*",
+        "defaultSearchPage" : "https://dev.swisscows.com/en/default-search"
+
+    },
+
+    "servicesBlockLinks": [
+        {
+            "testID": "1",
+            "expectedLink": "https://hesbox.com/en",
+            "locatorId" : "Learn more",
+            "expectedTitle": "Enterprise Search Software for companies "
+        },
+        {
+            "testID": "2",
+            "expectedLink": "https://swisscows-fanshop.com",
+            "locatorId" :"visit shop",
+            "expectedTitle" : "SWISSCOWS FANSHOP – Swisscows"
+        },
+        {
+            "testID": "3",
+            "expectedLink": "https://awiebe.org",
+            "locatorId" : "go to blog",
+            "expectedTitle" :"Blog - Andreas Wiebe"
+        }
+    ]
+}

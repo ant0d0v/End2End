@@ -1,0 +1,23 @@
+
+{
+    "headerLinks": [
+        {
+            "testID": "1",
+            "expectedLink": "https://teleguard.com/en",
+            "locatorId" : "TeleGuard",
+            "expectedTitle": "TeleGuard - secure messenger from Switzerland"
+        },
+        {
+            "testID": "2",
+            "expectedLink": "https://dev.swisscows.com/en/anonymous-vpn",
+            "locatorId" : "VPN",
+            "expectedTitle" : "Swisscows"
+        },
+        {
+            "testID": "3",
+            "expectedLink": "https://dev.swisscows.com/en/swisscows-email",
+            "locatorId" : "Email",
+            "expectedTitle" :"Swisscows"
+        }
+    ]
+}
