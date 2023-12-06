@@ -55,7 +55,7 @@ export class BasePage {
       await this.page.reload("domcontentloaded");
     });
   }
-  async input(element, text, nameElement ) {
+  async input(element, text, nameElement) {
     await test.step(`Input text in to the ${nameElement}`, async () => {
       await element.type(text, { delay: 100 });
     });
@@ -73,45 +73,45 @@ export class BasePage {
 
   // Verify
 
-  async AssertHaveTitle(newPage, title) {
+  async expectHaveTitle(newPage, title) {
     await test.step('Expect a title "to have" a substring', async () => {
       await expect(newPage).toHaveTitle(title);
     });
   }
 
-  async AssertHaveUrl(newPage, url) {
+  async expectHaveUrl(newPage, url) {
     await test.step('Expect a URL "to have" a string', async () => {
       await expect(newPage).toHaveURL(url);
     });
   }
 
-  async AssertTextOfElement(element, text) {
+  async expectTextOfElement(element, text) {
     await test.step('Expect the Element "to have" a string', async () => {
       await expect(element).toHaveText(text);
     });
   }
-  async AssertHaveValue(element, value) {
+  async expectHaveValue(element, value) {
     await test.step('Expect the Element "to have" a value', async () => {
       await expect(element).toHaveValue(value);
     });
   }
-  async AssertListSize(elements, number) {
+  async expectListSize(elements, number) {
     await test.step('Expect the elements in the array to "have" a count', async () => {
       await expect(elements).toHaveCount(number);
     });
   }
-  async AssertArraySize(elements, number) {
+  async expectArraySize(elements, number) {
     await test.step('Expect the elements in the array to "eqaul" a count', async () => {
       await expect(elements.length).toEqual(number);
     });
   }
-  async AssertElementToBeEditable(element) {
+  async expectElementToBeEditable(element) {
     await test.step("Expect the element points to an editable element.", async () => {
       const locator = this.page.locator(element);
       await expect(locator).toBeEditable();
     });
   }
-  async AssertColorsLinksWhenHovering(elements, expectedValue) {
+  async expectColorsLinksWhenHovering(elements, expectedValue) {
     await test.step('Expect the elements in the array to "have" css color with value', async () => {
       for (const link of await elements.all()) {
         await link.hover();
@@ -120,49 +120,49 @@ export class BasePage {
     });
   }
 
-  async AssertAttributeClassAllElements(elements, value) {
+  async expectAttributeClassAllElements(elements, value) {
     await test.step('Expect the elements in the array to "have" attribute class with value', async () => {
       for (const attribute of await elements.all()) {
         await expect(attribute).toHaveAttribute("class", value);
       }
     });
   }
-  async AssertAttributeClassOfElement(element, value) {
+  async expectAttributeClassOfElement(element, value) {
     await test.step('Expect the element  to "have" attribute class with value ', async () => {
       await expect(element).toHaveAttribute("class", value);
     });
   }
-  async AssertIsElementDisplayed(element) {
+  async expectIsElementDisplayed(element) {
     await test.step('Expect the element  to "be" visible', async () => {
       await expect(element).toBeVisible();
     });
   }
 
-  async AssertAreElementsInListDisplayed(elements) {
+  async expectAreElementsInListDisplayed(elements) {
     await test.step('Expect the element in the array to "be" visible', async () => {
       for (const image of await elements.all()) {
         await expect(image).toBeVisible();
       }
     });
   }
-  async AssertTextsToContains(elements, criteria) {
+  async expectTextsToContains(elements, criteria) {
     await test.step('Expect the elements in the array "to contain" a string', async () => {
       for (const element of await elements.all()) {
         await expect(element).toContainText(criteria);
       }
     });
   }
-  async AssertH1Text(newPage, text) {
+  async expectH1Text(newPage, text) {
     await test.step('Expect the page  "to have" h1 text with text', async () => {
-      await this.AssertTextOfElement(this.h1Text(newPage), text);
+      await this.expectTextOfElement(this.h1Text(newPage), text);
     });
   }
-  async AssertTextsToEqual(elements, expectedText) {
+  async expectTextsToEqual(elements, expectedText) {
     await test.step('Expect all elements to array "to equal" a string', async () => {
       await expect(elements).toEqual(expectedText);
     });
   }
-  async AssertScreenOfPage(element1, element2) {
+  async expectScreenOfPage(element1, element2) {
     await test.step('Expect all elements to array "to equal" a string', async () => {
       await expect(this.page).toHaveScreenshot({
         fullPage: true,

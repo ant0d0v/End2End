@@ -22,7 +22,7 @@ test("Check  login User and display of nickname in hamburger menu", async ({
     await header.clickHamburgerMenuButton()
   
     //Assert
-    await hamburgerMenu.AssertNicknameUserInHamburgerMenuToHave("TTest")
+    await hamburgerMenu.expectNicknameUserInHamburgerMenuToHave("TTest");
 });
   
 test("Check Log Out user and display of login button", async ({
@@ -40,7 +40,7 @@ test("Check Log Out user and display of login button", async ({
     await header.clickHamburgerMenuButton()
   
     //Assert
-    await hamburgerMenu.AssertLoginButtonInHamburgerMenuIsDisplayed()
+    await hamburgerMenu.expectLoginButtonInHamburgerMenuIsDisplayed();
 });
   
 test("Texts of the links in the hamburger menu.", async ({
@@ -53,7 +53,7 @@ test("Texts of the links in the hamburger menu.", async ({
     await headerStaticPages.clickHamburgerMenuButton()
     
     //Assert
-    await hamburgerMenu.AssertTextsOfLinksInHamburgerMenu(expectedTextsOfLinks)
+    await hamburgerMenu.expectTextsOfLinksInHamburgerMenu(expectedTextsOfLinks);
 });
   
 test("Check availability and options of localization dropdown menu in hamburger Menu", async ({
@@ -67,8 +67,8 @@ test("Check availability and options of localization dropdown menu in hamburger 
     await hamburgerMenu.clickLanguagesDropdownInHamburgerMenu()
     
     //Assert
-    await hamburgerMenu.AssertListSize(hamburgerMenu.textsOflanguagesDropdownInHamburgerMenu, 11)
-    await hamburgerMenu.AssertTextsOfLanguagesInHamburgerMenu(expectedTextsOfLanguagesDropdown)
+    await hamburgerMenu.expectListSize(hamburgerMenu.textsOflanguagesDropdownInHamburgerMenu, 11)
+    await hamburgerMenu.expectTextsOfLanguagesInHamburgerMenu(expectedTextsOfLanguagesDropdown);
 });
   
 test("Check  availability and options of region dropdown menu in hamburger menu", async ({
@@ -87,8 +87,8 @@ test("Check  availability and options of region dropdown menu in hamburger menu"
     await hamburgerMenu.clickRegionDropdownInHamburgerMenu()
     
     //Assert
-    await hamburgerMenu.AssertListSize(hamburgerMenu.textsOfRegionDropdownInHamburgerMenu, 48)
-    await hamburgerMenu.AssertTextsOfRegionInHamburgerMenu(expectedTextsOfRegionDropdown)
+    await hamburgerMenu.expectListSize(hamburgerMenu.textsOfRegionDropdownInHamburgerMenu,48);
+    await hamburgerMenu.expectTextsOfRegionInHamburgerMenu( expectedTextsOfRegionDropdown);
 
 });
 test("Check theme change to dark theme", async ({
@@ -102,7 +102,7 @@ test("Check theme change to dark theme", async ({
     await hamburgerMenu.clickDarkInHamburgerMenu()
     
     //Assert
-    await hamburgerMenu.AssertBackgroundColorOfPage(expectedDarkBackground)
+    await hamburgerMenu.expectBackgroundColorOfPage(expectedDarkBackground);
   });
   
   test("Check theme change to light theme", async ({
@@ -116,7 +116,7 @@ test("Check theme change to dark theme", async ({
     await hamburgerMenu.clickLightInHamburgerMenu()
     
     //Assert
-    await hamburgerMenu.AssertBackgroundColorOfPage(expectedLightBackground)
+    await hamburgerMenu.expectBackgroundColorOfPage(expectedLightBackground);
   });
   
   test("Check default theme on first opening the site", async ({
@@ -129,8 +129,8 @@ test("Check theme change to dark theme", async ({
     await hamburgerMenu.clickThemeDropdownInHamburgerMenu()
   
     //Assert
-    await hamburgerMenu.AssertAttributeClassOfElement(hamburgerMenu.defaultThemeInHemburgerMenu, "active")
-    await hamburgerMenu.AssertBackgroundColorOfPage(expectedLightBackground)
+    await hamburgerMenu.expectAttributeClassOfElement(hamburgerMenu.defaultThemeInHemburgerMenu, "active")
+    await hamburgerMenu.expectBackgroundColorOfPage(expectedLightBackground);
   });
 
   for (const {testID, expectedLink,locatorId,expectedTitle,} of  dateTest.languagesLinksOfMainPage) {
@@ -146,8 +146,8 @@ test("Check theme change to dark theme", async ({
       await hamburgerMenu.clickLanguageLinkInDropdown(locatorId);
 
       //Assert
-      await mainPage.AssertHaveUrl(page, expectedLink);
-      await mainPage.AssertHaveTitle(page, new RegExp(expectedTitle));
+      await mainPage.expectHaveUrl(page, expectedLink);
+      await mainPage.expectHaveTitle(page, new RegExp(expectedTitle));
     });
   }
 
@@ -164,8 +164,8 @@ test("Check theme change to dark theme", async ({
       await hamburgerMenu.clickRegioLinkInDropdown(locatorId)
     
       //Assert
-      await mainPage.AssertHaveUrl(page, expectedLink);
-      await mainPage.AssertHaveTitle(page,expectedTitle);
+      await mainPage.expectHaveUrl(page, expectedLink);
+      await mainPage.expectHaveTitle(page, expectedTitle);
     });
   }
   for (const {testID, expectedLink,locatorId,expectedTitle} of  dateTest.staticPagesLinks) {
@@ -179,7 +179,7 @@ test("Check theme change to dark theme", async ({
       await hamburgerMenu.clickLinkOfStaticPage(locatorId);
 
       //Assert
-      await hamburgerMenu.AssertHaveUrl(page, expectedLink);
-      await hamburgerMenu.AssertHaveTitle(page, expectedTitle);
+      await hamburgerMenu.expectHaveUrl(page, expectedLink);
+      await hamburgerMenu.expectHaveTitle(page, expectedTitle);
     });
 }

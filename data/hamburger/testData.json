@@ -430,7 +430,7 @@
             "testID": "7",
             "expectedLink": "https://dev.swisscows.com/en/contact",
             "locatorId" : "Contact us",
-            "expectedTitle" :"Contact us | Swisscows"
+            "expectedTitle" :"Contact us"
         },
         {
             "testID": "8",
