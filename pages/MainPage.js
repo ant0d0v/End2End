@@ -10,7 +10,10 @@ export class MainPage extends BasePage {
     this.placeholderMainPage = this.page.getByPlaceholder(
       "Your search. Your business."
     );
-    this.logoSwisscows = this.page.getByRole("img", { name: "Swisscows",exact: true,});
+    this.logoSwisscows = this.page.getByRole("img", {
+      name: "Swisscows",
+      exact: true,
+    });
     this.suggestionItems = this.page.locator("ul.suggestions li");
     this.suggest = this.page.locator("ul.suggestions");
     this.blockQuestionsAndAnswers = this.page.getByText(
@@ -18,25 +21,21 @@ export class MainPage extends BasePage {
     );
     this.allQuestions = this.page.locator("h3.question");
     this.allAttributeOfQuestions = this.page.locator("div.faq-wrap div");
-    this.fourQuestion = this.page.locator("div").filter({ hasText: "How can I switch from another" }).nth(2);
+    this.fourQuestion = this.page
+      .locator("div")
+      .filter({ hasText: "How can I switch from another" })
+      .nth(2);
     this.linkInTheFourQuestion = this.page.getByRole("link", {
       name: "instructions",
     });
-    this.popupGoogleInstall = this.page.getByRole("link", {
-      name: "Stay with us and set Swisscows as your default search engine.",
+    this.popupInstallSwisscowsLink = this.page.getByRole("link", {
+      name: "Stay with us and set",
     });
-    this.containerGoogleInstall = this.page.locator(
+    this.installSwisscowsBlock = this.page.locator(
       "//a[@class = 'install-sw-block popup']"
     );
     this.answersToQuestions = this.page.locator("p.answer");
-    this.closeButtonPopupGoogle = this.page
-      .getByRole("banner")
-      .locator("div")
-      .filter({
-        hasText:
-          "Install Swisscows at Google ChromeStay with us and set Swisscows as your default",
-      })
-      .getByRole("button");
+    this.closeButtonOfPopupInstallSwisscowsLink = this.page.locator(" div.home-link-instruction button.erase ");
     this.widgetMainPage = this.page.locator("//div[@class ='bnnr-widget']");
     this.imagesOfServiceBlock = this.page.locator("div.services-blocks img");
     this.serviceBlock = this.page.locator("div.services-blocks");
@@ -77,10 +76,10 @@ export class MainPage extends BasePage {
     );
     return this;
   };
-  scrollToContainerGoogleInstall = async () => {
+  scrollToInstallSwisscowsBlock = async () => {
     await this.scrollByVisibleElement(
-      this.containerGoogleInstall,
-      `container google Install`
+      this.installSwisscowsBlock,
+      `block install swisscows Install`
     );
     return this;
   };
@@ -120,21 +119,21 @@ export class MainPage extends BasePage {
       `link of four question in accordion menu`
     );
   };
-  clickPopupGoogleInstall = async () => {
+  clickPopupInstallSwisscowsLink = async () => {
     await this.clickElement(
-      this.popupGoogleInstall,
+      this.popupInstallSwisscowsLink,
       `popup google install on the main page`
     );
   };
-  clickContainerGoogleInstall = async () => {
+  clickInstallSwisscowsBlock = async () => {
     await this.clickElement(
-      this.containerGoogleInstall,
+      this.installSwisscowsBlock,
       `container google install on the main page`
     );
   };
-  clickCloseButtonPopupGoogle = async () => {
+  clickCloseButtonOfPopupInstallSwisscowsLink = async () => {
     await this.clickElement(
-      this.closeButtonPopupGoogle,
+      this.closeButtonOfPopupInstallSwisscowsLink,
       `close button of popup google`
     );
     return this;
@@ -156,8 +155,8 @@ export class MainPage extends BasePage {
   expectSuggestIsDisplayed = async () => {
     await this.expectIsElementDisplayed(this.suggest);
   };
-  expectPopupGoogleInstallIsDisplayed = async () => {
-    await this.expectIsElementDisplayed(this.popupGoogleInstall);
+  expectPopupInstallSwisscowsLinkIsDisplayed = async () => {
+    await this.expectIsElementDisplayed(this.popupInstallSwisscowsLink);
   };
   expectSuggestToHaveCount = async (number) => {
     this.expectListSize(this.suggestionItems, number);
@@ -170,8 +169,8 @@ export class MainPage extends BasePage {
     );
   };
 
-  expectTextOfPopupGoogleInstall = async (text) => {
-    this.expectTextOfElement(this.popupGoogleInstall, text);
+  expectTextOfPopupInstallSwisscowsLink = async (text) => {
+    this.expectTextOfElement(this.popupInstallSwisscowsLink, text);
   };
 
   expectImagesOfSrviceBlockAreDisplayed = async () => {

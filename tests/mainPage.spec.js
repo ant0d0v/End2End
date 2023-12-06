@@ -64,8 +64,8 @@ const testData = JSON.parse(
     const expectedText = "Stay with us and set Swisscows as your default search engine. ";
     
      //Assert
-    await mainPage.expectPopupGoogleInstallIsDisplayed();
-    await mainPage.expectTextOfPopupGoogleInstall(expectedText);
+    await mainPage.expectPopupInstallSwisscowsLinkIsDisplayed();;
+    await mainPage.expectTextOfPopupInstallSwisscowsLink(expectedText);
   });
 
   test('Check that popup "google install" redirect to the corresponding page', async ({
@@ -73,22 +73,22 @@ const testData = JSON.parse(
     context,
   }) => {
   
-    await mainPage.expectPopupGoogleInstallIsDisplayed();
-    await mainPage.clickPopupGoogleInstall();
+     await mainPage.expectPopupInstallSwisscowsLinkIsDisplayed();
+     await mainPage.clickPopupInstallSwisscowsLink();
 
-    const newPage = await mainPage.switchToAnotherWindow(context);
+     const newPage = await mainPage.switchToAnotherWindow(context);
     
      //Assert
     await mainPage.expectHaveUrl( newPage, new RegExp(testData.url.extensionGoogleInstall));
     await mainPage.expectHaveTitle(newPage, /Swisscows/);
   });
-
+  
   test('Check that the "Install Google Block" button redirect to coresponding URL.', async ({
     mainPage,
     context,
   }) => {
-    await mainPage.scrollToContainerGoogleInstall();
-    await mainPage.clickContainerGoogleInstall();
+    await mainPage.scrollToInstallSwisscowsBlock();
+    await mainPage.clickInstallSwisscowsBlock();
     
     const externalPage = await mainPage.switchToAnotherWindow(context);;
      
@@ -127,7 +127,7 @@ const testData = JSON.parse(
   });
 
   test("Check design of the main page ", async ({ mainPage }) => {
-    await mainPage.clickCloseButtonPopupGoogle();
+    await mainPage.clickCloseButtonOfPopupInstallSwisscowsLink();
     
     //Assert
     await mainPage.expectScreenMainPage();
