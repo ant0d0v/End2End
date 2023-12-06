@@ -26,10 +26,9 @@ jobs:
         displayName: "Install Playwright Browsers"
  
       - script: |
-          QASE_REPORT=1 QASE_RUN_NAME=End2End npx playwright test --project ui --project api --headed
+          QASE_REPORT=1 QASE_RUN_NAME=End2End npx playwright test --project chromium --project firefox --project api --headed
         displayName: "Run Playwright tests"
-        
-
+       
       - publish: $(Build.SourcesDirectory)/playwright-report
         displayName: "Publish report"
         artifact: playwright-report
