@@ -3,9 +3,9 @@ const { expect} = require("@playwright/test");
 export class BotsProtection {
   constructor(request) {
     this.request = request;
-    }
-  
-    // Action
+  }
+
+  // Action
 
   async make100SearchRequestAndGetResponse(Nonce, Signature, Query, endpoint) {
     let response;
@@ -97,10 +97,7 @@ export class BotsProtection {
     });
     return response;
   }
-  async makeSearchRequestAndGetResponseForMusic(
-    Query,
-    endpoint
-  ) {
+  async makeSearchRequestAndGetResponseForMusic(Query, endpoint) {
     let response;
     response = await this.request.get(process.env.API_URL + endpoint, {
       params: {
@@ -132,12 +129,12 @@ export class BotsProtection {
     }
     return response;
   }
-    // Verify
-    
-  async AssertResponseToHaveStatusCode(response, code) {
+  // Verify
+
+  async expectResponseToHaveStatusCode(response, code) {
     await expect(response.status()).toBe(code);
   }
-  async AssertResponseToBeFalsy(response) {
+  async expectResponseToBeFalsy(response) {
     await expect(response.ok()).toBeFalsy();
   }
 }

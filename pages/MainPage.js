@@ -1,17 +1,15 @@
 const { expect } = require("@playwright/test");
 import { DefaultSearchPage } from "./static-pages/DefaultSearchPage";
 import { BasePage } from "../components/BasePage";
+import { HeaderStaticPages } from "../components/HeaderStaticPages";
 import { WebPage } from "./search/WebPage";
 
 export class MainPage extends BasePage {
   constructor(page) {
     super(page);
     // Locators
-    this.serviceLinks = this.page.locator("div.services-blocks a");
-    this.placeholderMainPage = this.page.getByPlaceholder(
-      "Your search. Your business."
-    );
-    this.logoSwisscows = this.page.getByRole("img", { name: "Swisscows" });
+    this.placeholderMainPage = this.page.getByPlaceholder("Your search. Your business.");
+    this.logoSwisscows = this.page.getByRole("img", {name: "Swisscows",exact: true,});
     this.suggestionItems = this.page.locator("ul.suggestions li");
     this.suggest = this.page.locator("ul.suggestions");
     this.blockQuestionsAndAnswers = this.page.getByText(
@@ -19,47 +17,31 @@ export class MainPage extends BasePage {
     );
     this.allQuestions = this.page.locator("h3.question");
     this.allAttributeOfQuestions = this.page.locator("div.faq-wrap div");
-    this.fourQuestion = this.page
-      .locator("div")
-      .filter({
-        hasText:
-          "How can I switch from another search engine to the anonymous search engine Swiss",
-      })
-      .nth(4);
-    this.linkInTheFourQuestion = this.page.getByRole("link", {
-      name: "instructions",
-    });
-    this.popupGoogleInstall = this.page.getByRole("link", {
-      name: "Stay with us and set Swisscows as your default search engine.",
-    });
-    this.containerGoogleInstall = this.page.locator(
-      "//a[@class = 'install-sw-block popup']"
-    );
+    this.fourQuestion = this.page.locator("div").filter({ hasText: "How can I switch from another" }).nth(2);
+    this.linkInTheFourQuestion = this.page.getByRole("link", {name: "instructions",});
+    this.popupInstallSwisscowsLink = this.page.getByRole("link", {name: "Stay with us and set",});
+    this.installSwisscowsBlock = this.page.locator("//a[@class = 'install-sw-block popup']");
     this.answersToQuestions = this.page.locator("p.answer");
-    this.closeButtonPopupGoogle = this.page
-      .getByRole("banner")
-      .locator("div")
-      .filter({
-        hasText:
-          "Install Swisscows at Google ChromeStay with us and set Swisscows as your default",
-      })
-      .getByRole("button");
+    this.closeButtonOfPopupInstallSwisscowsLink = this.page.locator("div.home-link-instruction button.erase");
     this.widgetMainPage = this.page.locator("//div[@class ='bnnr-widget']");
     this.imagesOfServiceBlock = this.page.locator("div.services-blocks img");
     this.serviceBlock = this.page.locator("div.services-blocks");
-    this.linksOfServiceBlock = (name) =>
-      page.getByRole("link", { name: name });
+    this.linksOfServiceBlock = (name) => page.getByRole("link", { name: name });
+    this.buttonOfServiceBlock = page.locator("a.services-block-link");
   }
 
   //Actions
 
   clickAllQuestions = async () => {
-    await this.clickAllElementsInList(this.allQuestions,`questions`);
+    await this.clickAllElementsInList(this.allQuestions, `questions`);
     return this;
   };
 
   clickLinkInServiceBlock = async (id) => {
-    await this.clickElement(this.linksOfServiceBlock(id),`link of service block `);
+    await this.clickElement(
+      this.linksOfServiceBlock(id),
+      `link of service block `
+    );
   };
 
   clickEnterSearchField = async () => {
@@ -75,11 +57,17 @@ export class MainPage extends BasePage {
     return this;
   };
   scrollToBlockQuestionsAndAnswers = async () => {
-    await this.scrollByVisibleElement(this.blockQuestionsAndAnswers, `accordion menu`);
+    await this.scrollByVisibleElement(
+      this.blockQuestionsAndAnswers,
+      `accordion menu`
+    );
     return this;
   };
-  scrollToContainerGoogleInstall = async () => {
-    await this.scrollByVisibleElement(this.containerGoogleInstall,`container google Install`);
+  scrollToInstallSwisscowsBlock = async () => {
+    await this.scrollByVisibleElement(
+      this.installSwisscowsBlock,
+      `block install swisscows Install`
+    );
     return this;
   };
   scrollToServicesBlock = async () => {
@@ -88,68 +76,95 @@ export class MainPage extends BasePage {
   };
 
   inputSearchCriteria = async (text) => {
-    await this.input(this.placeholderMainPage, text,`search field`);
+    await this.input(this.placeholderMainPage, text, `search field`);
     return this;
   };
   clickLogoSwisscows = async () => {
-    await this.clickElement(this.logoSwisscows, `logo swisscows on the main page`);
+    await this.clickElement(
+      this.logoSwisscows,
+      `logo swisscows on the main page`
+    );
     return this;
   };
   clickSearchField = async () => {
-    await this.clickElement(this.placeholderMainPage,`search field on the main page`);
+    await this.clickElement(
+      this.placeholderMainPage,
+      `search field on the main page`
+    );
     return this;
   };
   clickFourQuestion = async () => {
-    await this.clickElement(this.fourQuestion, `four question in accordion menu`);
+    await this.clickElement(
+      this.fourQuestion,
+      `four question in accordion menu`
+    );
     return new DefaultSearchPage();
   };
   clickLinkInTheFourQuestion = async () => {
-    await this.clickElement(this.linkInTheFourQuestion, `link of four question in accordion menu`);
+    await this.clickElement(
+      this.linkInTheFourQuestion,
+      `link of four question in accordion menu`
+    );
   };
-  clickPopupGoogleInstall = async () => {
-    await this.clickElement(this.popupGoogleInstall, `popup google install on the main page`);
+  clickPopupInstallSwisscowsLink = async () => {
+    await this.clickElement(
+      this.popupInstallSwisscowsLink,
+      `popup install swisscows link on the main page`
+    );
   };
-  clickContainerGoogleInstall = async () => {
-    await this.clickElement(this.containerGoogleInstall, `container google install on the main page`);
+  clickInstallSwisscowsBlock = async () => {
+    await this.clickElement(
+      this.installSwisscowsBlock,
+      `container install swisscows block on the main page`
+    );
   };
-  clickCloseButtonPopupGoogle = async () => {
-    await this.clickElement(this.closeButtonPopupGoogle, `close button of popup google`);
+  clickCloseButtonOfPopupInstallSwisscowsLink = async () => {
+    await this.clickElement(
+      this.closeButtonOfPopupInstallSwisscowsLink,
+      `close button of popup install swisscows link`
+    );
     return this;
   };
 
   // Verify
-  AssertQuestionsAreOpened = async () => {
-    await this.AssertAttributeClassAllElements(
+  expectQuestionsAreOpened = async () => {
+    await this.expectAttributeClassAllElements(
       this.allAttributeOfQuestions,
       "faq open"
     );
   };
-  AssertQuestionsAreClosed = async () => { 
-    await this.AssertAttributeClassAllElements(this.allAttributeOfQuestions,"faq");
+  expectQuestionsAreClosed = async () => {
+    await this.expectAttributeClassAllElements(
+      this.allAttributeOfQuestions,
+      "faq"
+    );
   };
-  AssertSuggestIsDisplayed = async () => {
-    await this.AssertIsElementDisplayed(this.suggest);
+  expectSuggestIsDisplayed = async () => {
+    await this.expectIsElementDisplayed(this.suggest);
   };
-  AssertPopupGoogleInstallIsDisplayed = async () => {
-    await this.AssertIsElementDisplayed(this.popupGoogleInstall);
+  expectPopupInstallSwisscowsLinkIsDisplayed = async () => {
+    await this.expectIsElementDisplayed(this.popupInstallSwisscowsLink);
   };
-  AssertSuggestToHaveCount = async (number) => {
-    this.AssertListSize(this.suggestionItems, number);
-  };
-
-  AssertScreenMainPage = async () => {
-    await this.AssertScreenOfPage(this.widgetMainPage,this.imagesOfServiceBlock );
-  };
-
-  AssertTextOfPopupGoogleInstall = async (text) => {
-    this.AssertTextOfElement(this.popupGoogleInstall, text);
+  expectSuggestToHaveCount = async (number) => {
+    this.expectListSize(this.suggestionItems, number);
   };
 
-  AssertImagesOfSrviceBlockAreDisplayed = async () => {
-    await this.AssertAreElementsInListDisplayed(this.imagesOfServiceBlock);
+  expectScreenMainPage = async () => {
+    await this.expectScreenOfPage(
+      this.widgetMainPage,
+      this.imagesOfServiceBlock
+    );
   };
 
-  AssertSuggestToContains = async (criteria) => {
-    this.AssertTextsToContains(this.suggestionItems, criteria);
+  expectTextOfPopupInstallSwisscowsLink = async (text) => {
+    this.expectTextOfElement(this.popupInstallSwisscowsLink, text);
+  };
+
+  expectImagesOfSrviceBlockAreDisplayed = async () => {
+    await this.expectAreElementsInListDisplayed(this.imagesOfServiceBlock);
+  };
+
+  expectSuggestToContains = async (criteria) => {
+    this.expectTextsToContains(this.suggestionItems, criteria);
   };
 }

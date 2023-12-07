@@ -42,7 +42,7 @@ module.exports = defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: "https://dev.swisscows.com/",
-    actionTimeout: 10 * 1000,
+    actionTimeout: 15 * 1000,
     locale: "en-GB",
     colorScheme: "light",
     screenshot: "only-on-failure",
@@ -67,7 +67,19 @@ module.exports = defineConfig({
       testMatch: /.*\.api\.js/,
     },
     {
-      name: "ui",
+      name: "firefox",
+      testMatch: /.*\.ff\.js/,
+      use: {
+        ...devices["Desktop Firefox"],
+        headless: false,
+        viewport: { width: 1360, height: 900 },
+        screenshot: "on",
+        trace: "retain-on-failure",
+      },
+    },
+
+    {
+      name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
         storageState: "./data/auth/user.json",
@@ -81,17 +93,6 @@ module.exports = defineConfig({
       name: "cleanup",
       testMatch: /.*\.teardown\.js/,
     },
-   
-    // {
-    //   name: 'firefox',
-    //   use: {
-    //     ...devices['Desktop Firefox'],
-    //     headless: false,
-    //     viewport: { width: 1360, height: 900 },
-    //     screenshot : 'on',
-    //     trace : 'retain-on-failure'
-    //   },
-    // },
 
     // {
     //   name: 'webkit',

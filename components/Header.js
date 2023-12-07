@@ -22,7 +22,7 @@ export  class Header extends HeaderStaticPages {
     }
 
     //Actions
- 
+    
     clickHamburgerMenuButton = async () => {
         await this.clickElement(this.hamburgerMenu, `hamburger menu in the header`);
     }

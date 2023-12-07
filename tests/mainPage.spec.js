@@ -13,9 +13,9 @@ const testData = JSON.parse(
     await mainPage.waitToBeVisibleSuggest();
   
     //Assert
-    await mainPage.AssertSuggestIsDisplayed();
-    await mainPage.AssertSuggestToHaveCount(5);
-    await mainPage.AssertSuggestToContains(testData.searchCriteria.criteria);
+    await mainPage.expectSuggestIsDisplayed();
+    await mainPage.expectSuggestToHaveCount(5);
+    await mainPage.expectSuggestToContains(testData.searchCriteria.criteria);
   });
 
   test("Check that all questions were opened on the main page.", async ({
@@ -25,7 +25,7 @@ const testData = JSON.parse(
     await mainPage.clickAllQuestions();
     
     //Assert
-    await mainPage.AssertQuestionsAreOpened();
+    await mainPage.expectQuestionsAreOpened();
   });
   
   test("Check that a question and answer can be opened and closed on the main page.", async ({
@@ -35,12 +35,12 @@ const testData = JSON.parse(
     await mainPage.clickAllQuestions();
     
     //Assert
-    await mainPage.AssertQuestionsAreOpened();
+    await mainPage.expectQuestionsAreOpened();
 
     await mainPage.clickAllQuestions();
 
      //Assert
-    await mainPage.AssertQuestionsAreClosed();
+    await mainPage.expectQuestionsAreClosed();
   });
 
   test("Check that the link in the fourth question leads to the expected URL.", async ({
@@ -56,16 +56,16 @@ const testData = JSON.parse(
     const DefaultSearchPage = await mainPage.switchToAnotherWindow(context);
    
     //Assert
-    await defaultSearchPage.AssertHaveUrl(DefaultSearchPage, testData.url.defaultSearchPage);
-    await defaultSearchPage.AssertH1Text(DefaultSearchPage, expectedH1text);
+    await defaultSearchPage.expectHaveUrl(DefaultSearchPage, testData.url.defaultSearchPage);
+    await defaultSearchPage.expectH1Text(DefaultSearchPage, expectedH1text);
   });
 
   test("Check that popup google install Is Dysplaed", async ({ mainPage }) => {
     const expectedText = "Stay with us and set Swisscows as your default search engine. ";
     
      //Assert
-    await mainPage.AssertPopupGoogleInstallIsDisplayed();
-    await mainPage.AssertTextOfPopupGoogleInstall(expectedText);
+    await mainPage.expectPopupInstallSwisscowsLinkIsDisplayed();;
+    await mainPage.expectTextOfPopupInstallSwisscowsLink(expectedText);
   });
 
   test('Check that popup "google install" redirect to the corresponding page', async ({
@@ -73,28 +73,28 @@ const testData = JSON.parse(
     context,
   }) => {
   
-    await mainPage.AssertPopupGoogleInstallIsDisplayed();
-    await mainPage.clickPopupGoogleInstall();
+     await mainPage.expectPopupInstallSwisscowsLinkIsDisplayed();
+     await mainPage.clickPopupInstallSwisscowsLink();
 
-    const newPage = await mainPage.switchToAnotherWindow(context);
+     const newPage = await mainPage.switchToAnotherWindow(context);
     
      //Assert
-    await mainPage.AssertHaveUrl( newPage, new RegExp(testData.url.extensionGoogleInstall));
-    await mainPage.AssertHaveTitle( newPage,  /Swisscows/);
+    await mainPage.expectHaveUrl( newPage, new RegExp(testData.url.extensionGoogleInstall));
+    await mainPage.expectHaveTitle(newPage, /Swisscows/);
   });
-
+  
   test('Check that the "Install Google Block" button redirect to coresponding URL.', async ({
     mainPage,
     context,
   }) => {
-    await mainPage.scrollToContainerGoogleInstall();
-    await mainPage.clickContainerGoogleInstall();
+    await mainPage.scrollToInstallSwisscowsBlock();
+    await mainPage.clickInstallSwisscowsBlock();
     
     const externalPage = await mainPage.switchToAnotherWindow(context);;
      
     //Assert
-    await mainPage.AssertHaveUrl(externalPage,new RegExp(testData.url.extensionGoogleInstall));
-    await mainPage.AssertHaveTitle( externalPage, /Swisscows/);
+    await mainPage.expectHaveUrl(externalPage,new RegExp(testData.url.extensionGoogleInstall));
+    await mainPage.expectHaveTitle(externalPage, /Swisscows/);
   });
 
   test("Check the texts of questions on the main page.", async ({
@@ -111,8 +111,8 @@ const testData = JSON.parse(
     const actualAnswers = await mainPage.getTextsOfAllQuestions();
   
      //Assert
-    await mainPage.AssertArraySize(actualAnswers, 6)
-    await mainPage.AssertTextsToEqual(actualAnswers ,expectedAnswers)
+    await mainPage.expectArraySize(actualAnswers, 6);
+    await mainPage.expectTextsToEqual(actualAnswers, expectedAnswers);
   });
   
   
@@ -123,14 +123,14 @@ const testData = JSON.parse(
     await mainPage.scrollToServicesBlock();
     
      //Assert
-    await mainPage.AssertColorsLinksWhenHovering(mainPage.serviceLinks, expectedColorWhenHovering);
+    await mainPage.expectColorsLinksWhenHovering(mainPage.buttonOfServiceBlock, expectedColorWhenHovering);
   });
 
   test("Check design of the main page ", async ({ mainPage }) => {
-    await mainPage.clickCloseButtonPopupGoogle();
+    await mainPage.clickCloseButtonOfPopupInstallSwisscowsLink()
     
     //Assert
-    await mainPage.AssertScreenMainPage();
+    await mainPage.expectScreenMainPage();
   });
 
   test("Check design dark theme of the main page ", async ({ mainPage, headerStaticPages, hamburgerMenu }) => {
@@ -141,14 +141,14 @@ const testData = JSON.parse(
     await hamburgerMenu.clickDarkInHamburgerMenu()
 
     //Assert
-    await mainPage.AssertScreenMainPage();
+    await mainPage.expectScreenMainPage();
   });
 
   test("Check that images are dysplaed of the service block", async ({ mainPage }) => {
     await mainPage.scrollToServicesBlock();
      
     //Assert
-    await mainPage.AssertImagesOfSrviceBlockAreDisplayed();
+    await mainPage.expectImagesOfSrviceBlockAreDisplayed();
   });
   
   for (const {testID, expectedLink, locatorId, expectedTitle} of testData.servicesBlockLinks) {
@@ -161,8 +161,8 @@ const testData = JSON.parse(
 
       //Assert
 
-      await mainPage.AssertHaveUrl(newPage, expectedLink);
-      await mainPage.AssertHaveTitle(newPage, expectedTitle);
+      await mainPage.expectHaveUrl(newPage, expectedLink);
+      await mainPage.expectHaveTitle(newPage, expectedTitle);
     });
   }
   

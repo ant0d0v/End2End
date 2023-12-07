@@ -16,8 +16,8 @@ test("Clicking on the swisscows's logo leads to the main page.", async ({
   await header.clickSwisscowsLogo();
 
   //Assert
-  await mainPage.AssertHaveUrl(mainPage.page, process.env.WEB_URL + "en");
-  await mainPage.AssertHaveTitle(mainPage.page, "Your private and anonymous search engine Swisscows");
+  await mainPage.expectHaveUrl(mainPage.page, process.env.WEB_URL + "en");
+  await mainPage.expectHaveTitle(mainPage.page,"Your private and anonymous search engine Swisscows");
 });
 
 test("Check query counter value when searching for images ", async ({
@@ -30,7 +30,7 @@ test("Check query counter value when searching for images ", async ({
   await header.clickImageSearchButton();
 
   //Assert
-  await header.AssertTextCharitySearchCounterToHave("2");
+  await header.expectTextCharitySearchCounterToHave("2");
 });
 
 test("Check query counter value when searching for video ", async ({
@@ -43,7 +43,7 @@ test("Check query counter value when searching for video ", async ({
   await header.clickVideoSearchButton();
 
   //Assert
-  await header.AssertTextCharitySearchCounterToHave("2");
+  await header.expectTextCharitySearchCounterToHave("2");
 });
 
 test.use({ retries: 3 })
@@ -57,7 +57,7 @@ test("Check query counter value when searching for music", async ({
   await header.clickMusicSearchButton();
 
   //Assert
-  await header.AssertTextCharitySearchCounterToHave("2");
+  await header.expectTextCharitySearchCounterToHave("2");
 });
 
 test("Check query counter value when searching for news", async ({
@@ -72,7 +72,7 @@ test("Check query counter value when searching for news", async ({
   await header.clickNewsSearchButton();
   
   //Assert
-  await header.AssertTextCharitySearchCounterToHave("3");
+  await header.expectTextCharitySearchCounterToHave("3");
 });
 
 test("Check query counter value when searching for shopping", async ({
@@ -87,11 +87,11 @@ test("Check query counter value when searching for shopping", async ({
   await header.clickShoppingSearchButton();
   
   //Assert
-  await header.AssertTextCharitySearchCounterToHave("3");
+  await header.expectTextCharitySearchCounterToHave("3");
 });
 
 for (const {testID, expectedLink,locatorId,expectedTitle,} of data.headerLinks) {
-  test(`${testID} Check that header menu links on the search pages navigate to corresponding pages`, async ({
+  test(`${testID} Check that header badge ${locatorId} link navigate to corresponding pages`, async ({
     mainPage,
     header,
     context,
@@ -99,13 +99,13 @@ for (const {testID, expectedLink,locatorId,expectedTitle,} of data.headerLinks) 
     //Actions
     await mainPage.inputSearchCriteria(testData.searchCriteria.criteria);
     await mainPage.clickEnterSearchField();
-    await header.AssertTextCharitySearchCounterToHave("1");
+    await header.expectTextCharitySearchCounterToHave("1");
     await header.clickLinkInHeader(locatorId);
     const currentPage = await header.switchToAnotherWindow(context);
 
     //Assert
-    await header.AssertHaveUrl(currentPage, expectedLink);
-    await header.AssertHaveTitle(currentPage, new RegExp(expectedTitle));
+    await header.expectHaveUrl(currentPage, expectedLink);
+    await header.expectHaveTitle(currentPage, new RegExp(expectedTitle));
   });
 }
 
@@ -125,8 +125,8 @@ test("Check that email icon navigates to login page if user logged in on the sea
   const currentPage = await header.switchToAnotherWindow(context);
 
   //Assert
-  await header.AssertHaveUrl(currentPage, new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*"));
-  await header.AssertHaveTitle(currentPage, /Login - Swisscows Accounts/);
+  await header.expectHaveUrl(currentPage, new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*"));
+  await header.expectHaveTitle(currentPage, /Login - Swisscows Accounts/);
 });
 
 test("Check that display of heart icon message in the header", async ({
@@ -136,9 +136,9 @@ test("Check that display of heart icon message in the header", async ({
   //Actions
   await mainPage.inputSearchCriteria(testData.searchCriteria.criteria);
   await mainPage.clickEnterSearchField();
-  await header.AssertTextCharitySearchCounterToHave("1");
+  await header.expectTextCharitySearchCounterToHave("1");
   await header.clickSearchCounter()
 
  //Assert
- await header.AssertPopupCharitySearchCounterToHaveText("Charity ProjectThis is the number of your Swisscows searches. On average, 50 search queries finance a children's meal. Register and receive newsletters.");
+  await header.expectPopupCharitySearchCounterToHaveText("Charity ProjectThis is the number of your Swisscows searches. On average, 50 search queries finance a children's meal. Register and receive newsletters.");
 });

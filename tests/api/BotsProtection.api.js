@@ -16,8 +16,8 @@ test.describe.configure({ mode: "default" });
     );
 
     // Assert
-    await botsProtection.AssertResponseToHaveStatusCode(response, 429);
-    await botsProtection.AssertResponseToBeFalsy(response);
+    await botsProtection.expectResponseToHaveStatusCode(response, 429);
+    await botsProtection.expectResponseToBeFalsy(response);
     await expect(response.json()).resolves.toEqual(
       expect.objectContaining({
         status: 429,
@@ -38,8 +38,8 @@ test.describe.configure({ mode: "default" });
     );
 
     // Assert
-    await botsProtection.AssertResponseToHaveStatusCode(response, 429);
-    await botsProtection.AssertResponseToBeFalsy(response);
+    await botsProtection.expectResponseToHaveStatusCode(response, 429);
+    await botsProtection.expectResponseToBeFalsy(response);
     await expect(response.json()).resolves.toEqual(
       expect.objectContaining({
         status: 429,
@@ -60,8 +60,8 @@ test.describe.configure({ mode: "default" });
       );
 
     // Assert
-    await botsProtection.AssertResponseToHaveStatusCode(response, 429);
-    await botsProtection.AssertResponseToBeFalsy(response);
+    await botsProtection.expectResponseToHaveStatusCode(response, 429);
+    await botsProtection.expectResponseToBeFalsy(response);
     await expect(response.json()).resolves.toEqual(
       expect.objectContaining({
         status: 429,
@@ -82,8 +82,8 @@ test.describe.configure({ mode: "default" });
     );
 
     // Assert
-    await botsProtection.AssertResponseToHaveStatusCode(response, 429);
-    await botsProtection.AssertResponseToBeFalsy(response);
+    await botsProtection.expectResponseToHaveStatusCode(response, 429);
+    await botsProtection.expectResponseToBeFalsy(response);
     await expect(response.json()).resolves.toEqual(
       expect.objectContaining({
         status: 429,
@@ -102,8 +102,8 @@ test.describe.configure({ mode: "default" });
     );
 
     // Assert
-    await botsProtection.AssertResponseToHaveStatusCode(response, 429);
-    await botsProtection.AssertResponseToBeFalsy(response);
+    await botsProtection.expectResponseToHaveStatusCode(response, 429);
+    await botsProtection.expectResponseToBeFalsy(response);
     await expect(response.json()).resolves.toEqual(
       expect.objectContaining({
         status: 429,
@@ -122,8 +122,8 @@ test.describe.configure({ mode: "default" });
     );
 
     // Assert
-    await botsProtection.AssertResponseToHaveStatusCode(response, 429);
-    await botsProtection.AssertResponseToBeFalsy(response);
+    await botsProtection.expectResponseToHaveStatusCode(response, 429);
+    await botsProtection.expectResponseToBeFalsy(response);
     await expect(response.json()).resolves.toEqual(
       expect.objectContaining({
         status: 429,
@@ -143,8 +143,8 @@ test.describe.configure({ mode: "default" });
       );
 
     // Assert
-    await botsProtection.AssertResponseToHaveStatusCode(response, 429);
-    await botsProtection.AssertResponseToBeFalsy(response);
+    await botsProtection.expectResponseToHaveStatusCode(response, 429);
+    await botsProtection.expectResponseToBeFalsy(response);
     await expect(response.json()).resolves.toEqual(
       expect.objectContaining({
         status: 429,
@@ -165,8 +165,8 @@ test.describe.configure({ mode: "default" });
       );
 
     // Assert
-    await botsProtection.AssertResponseToHaveStatusCode(response, 429);
-    await botsProtection.AssertResponseToBeFalsy(response);
+    await botsProtection.expectResponseToHaveStatusCode(response, 429);
+    await botsProtection.expectResponseToBeFalsy(response);
     await expect(response.json()).resolves.toEqual(
       expect.objectContaining({
         status: 429,
@@ -187,8 +187,8 @@ test.describe.configure({ mode: "default" });
       );
 
     // Assert
-    await botsProtection.AssertResponseToHaveStatusCode(response, 429);
-    await botsProtection.AssertResponseToBeFalsy(response);
+    await botsProtection.expectResponseToHaveStatusCode(response, 429);
+    await botsProtection.expectResponseToBeFalsy(response);
     await expect(response.json()).resolves.toEqual(
       expect.objectContaining({
         status: 429,
@@ -207,8 +207,8 @@ test.describe.configure({ mode: "default" });
       );
 
     // Assert
-    await botsProtection.AssertResponseToHaveStatusCode(response, 429);
-    await botsProtection.AssertResponseToBeFalsy(response);
+    await botsProtection.expectResponseToHaveStatusCode(response, 429);
+    await botsProtection.expectResponseToBeFalsy(response);
     await expect(response.json()).resolves.toEqual(
       expect.objectContaining({
         status: 429,
