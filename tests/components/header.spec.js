@@ -91,7 +91,7 @@ test("Check query counter value when searching for shopping", async ({
 });
 
 for (const {testID, expectedLink,locatorId,expectedTitle,} of data.headerLinks) {
-  test(`${testID} Check that header menu links on the search pages navigate to corresponding pages`, async ({
+  test(`${testID} Check that header badge ${locatorId} link navigate to corresponding pages`, async ({
     mainPage,
     header,
     context,

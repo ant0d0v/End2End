@@ -127,7 +127,7 @@ const testData = JSON.parse(
   });
 
   test("Check design of the main page ", async ({ mainPage }) => {
-    await mainPage.clickCloseButtonOfPopupInstallSwisscowsLink();
+    await mainPage.clickCloseButtonOfPopupInstallSwisscowsLink()
     
     //Assert
     await mainPage.expectScreenMainPage();

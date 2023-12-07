@@ -6,8 +6,8 @@ export class HeaderStaticPages extends BasePage {
     super(page);
 
     //Locators
-    this.linksOfHeader = (name) => this.page.getByTitle(name);
-    this.hamburgerMenu = this.page.getByRole("button").nth(1);
+    this.linksOfHeader = (name) =>  this.page.locator(`a.badge-${name}`);
+    this.hamburgerMenu = this.page.locator("header button.hamburger-menu");
     this.charitySearchCounter = this.page.locator("div.badge span");
     this.badgeEmail = this.page.getByRole("link", { name: "Email" });
     this.searchCounter = this.page.locator("//div[@class= 'badge']");

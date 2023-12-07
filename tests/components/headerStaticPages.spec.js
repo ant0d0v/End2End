@@ -7,14 +7,16 @@ const testData = JSON.parse(
 );
  
 for (const {testID, expectedLink,locatorId,expectedTitle,} of data.headerLinks) {
-    test(`${testID} Check that header  static pages menu links navigate to corresponding pages`, async ({
+    test(`${testID} Check that header static badge ${locatorId} link navigate to corresponding pages`, async ({
       headerStaticPages,
-      context
+      context,
     }) => {
       //Actions
       await headerStaticPages.clickLinkInHeader(locatorId);
-      const currentPage = await headerStaticPages.switchToAnotherWindow(context);
-  
+      const currentPage = await headerStaticPages.switchToAnotherWindow(
+        context
+      );
+
       //Assert
       await headerStaticPages.expectHaveUrl(currentPage, expectedLink);
       await headerStaticPages.expectHaveTitle(currentPage,new RegExp(expectedTitle));
@@ -22,7 +24,8 @@ for (const {testID, expectedLink,locatorId,expectedTitle,} of data.headerLinks) 
 }
 test("Check charity query counter value at the Beginning", async ({
     headerStaticPages
-  }) => {
+}) => {
+  
     //Assert
     await headerStaticPages.expectTextCharitySearchCounterToHave("0");
 });

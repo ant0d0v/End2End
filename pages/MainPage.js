@@ -1,19 +1,15 @@
 const { expect } = require("@playwright/test");
 import { DefaultSearchPage } from "./static-pages/DefaultSearchPage";
 import { BasePage } from "../components/BasePage";
+import { HeaderStaticPages } from "../components/HeaderStaticPages";
 import { WebPage } from "./search/WebPage";
 
 export class MainPage extends BasePage {
   constructor(page) {
     super(page);
     // Locators
-    this.placeholderMainPage = this.page.getByPlaceholder(
-      "Your search. Your business."
-    );
-    this.logoSwisscows = this.page.getByRole("img", {
-      name: "Swisscows",
-      exact: true,
-    });
+    this.placeholderMainPage = this.page.getByPlaceholder("Your search. Your business.");
+    this.logoSwisscows = this.page.getByRole("img", {name: "Swisscows",exact: true,});
     this.suggestionItems = this.page.locator("ul.suggestions li");
     this.suggest = this.page.locator("ul.suggestions");
     this.blockQuestionsAndAnswers = this.page.getByText(
@@ -21,21 +17,12 @@ export class MainPage extends BasePage {
     );
     this.allQuestions = this.page.locator("h3.question");
     this.allAttributeOfQuestions = this.page.locator("div.faq-wrap div");
-    this.fourQuestion = this.page
-      .locator("div")
-      .filter({ hasText: "How can I switch from another" })
-      .nth(2);
-    this.linkInTheFourQuestion = this.page.getByRole("link", {
-      name: "instructions",
-    });
-    this.popupInstallSwisscowsLink = this.page.getByRole("link", {
-      name: "Stay with us and set",
-    });
-    this.installSwisscowsBlock = this.page.locator(
-      "//a[@class = 'install-sw-block popup']"
-    );
+    this.fourQuestion = this.page.locator("div").filter({ hasText: "How can I switch from another" }).nth(2);
+    this.linkInTheFourQuestion = this.page.getByRole("link", {name: "instructions",});
+    this.popupInstallSwisscowsLink = this.page.getByRole("link", {name: "Stay with us and set",});
+    this.installSwisscowsBlock = this.page.locator("//a[@class = 'install-sw-block popup']");
     this.answersToQuestions = this.page.locator("p.answer");
-    this.closeButtonOfPopupInstallSwisscowsLink = this.page.locator(" div.home-link-instruction button.erase ");
+    this.closeButtonOfPopupInstallSwisscowsLink = this.page.locator("div.home-link-instruction button.erase");
     this.widgetMainPage = this.page.locator("//div[@class ='bnnr-widget']");
     this.imagesOfServiceBlock = this.page.locator("div.services-blocks img");
     this.serviceBlock = this.page.locator("div.services-blocks");
@@ -122,19 +109,19 @@ export class MainPage extends BasePage {
   clickPopupInstallSwisscowsLink = async () => {
     await this.clickElement(
       this.popupInstallSwisscowsLink,
-      `popup google install on the main page`
+      `popup install swisscows link on the main page`
     );
   };
   clickInstallSwisscowsBlock = async () => {
     await this.clickElement(
       this.installSwisscowsBlock,
-      `container google install on the main page`
+      `container install swisscows block on the main page`
     );
   };
   clickCloseButtonOfPopupInstallSwisscowsLink = async () => {
     await this.clickElement(
       this.closeButtonOfPopupInstallSwisscowsLink,
-      `close button of popup google`
+      `close button of popup install swisscows link`
     );
     return this;
   };
