@@ -60,6 +60,12 @@ export class BasePage {
       await element.type(text, { delay: 100 });
     });
   }
+  async waitForUrlContains(Url) {
+    await test.step(`Wait for url ${Url}`, async () => {
+      await this.page.waitForURL(Url);
+    });
+  }
+  
   async selectOption(element, text) {
     await test.step("Waits until all specified options are present in the <select> element and selects these options. ", async () => {
       await element.selectOption(text);

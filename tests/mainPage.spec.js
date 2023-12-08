@@ -1,6 +1,9 @@
 // @ts-check
 const { test, expect } = require("../utils/fixtures");
 const testData = JSON.parse(
+  JSON.stringify(require("../data/header/testData.json")) 
+);
+const main = JSON.parse(
   JSON.stringify(require("../data/main-page/testData.json"))
 );
 test.beforeEach(async ({ mainPage }) => {
@@ -9,7 +12,7 @@ test.beforeEach(async ({ mainPage }) => {
 
   test("Check that suggest is displayed", async ({ mainPage , headerStaticPages}) => {
     
-    await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+    await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
     await mainPage.clickLogoSwisscows();
     await headerStaticPages.clickSearchField();
     await headerStaticPages.waitToBeVisibleSuggest();
@@ -17,7 +20,7 @@ test.beforeEach(async ({ mainPage }) => {
     //Assert
     await headerStaticPages.expectSuggestIsDisplayed();
     await headerStaticPages.expectSuggestToHaveCount(5);
-    await headerStaticPages.expectSuggestToContains(testData.searchCriteria.criteria);
+    await headerStaticPages.expectSuggestToContains(testData.searchCriteria.first);
   });
 
   test("Check that all questions were opened on the main page.", async ({
@@ -58,7 +61,7 @@ test.beforeEach(async ({ mainPage }) => {
     const DefaultSearchPage = await mainPage.switchToAnotherWindow(context);
    
     //Assert
-    await defaultSearchPage.expectHaveUrl(DefaultSearchPage, testData.url.defaultSearchPage);
+    await defaultSearchPage.expectHaveUrl(DefaultSearchPage, main.url.defaultSearchPage);
     await defaultSearchPage.expectH1Text(DefaultSearchPage, expectedH1text);
   });
 
@@ -81,7 +84,7 @@ test.beforeEach(async ({ mainPage }) => {
      const newPage = await mainPage.switchToAnotherWindow(context);
     
      //Assert
-    await mainPage.expectHaveUrl( newPage, new RegExp(testData.url.extensionGoogleInstall));
+    await mainPage.expectHaveUrl( newPage, new RegExp(main.url.extensionGoogleInstall));
     await mainPage.expectHaveTitle(newPage, /Swisscows/);
   });
   
@@ -95,7 +98,7 @@ test.beforeEach(async ({ mainPage }) => {
     const externalPage = await mainPage.switchToAnotherWindow(context);;
      
     //Assert
-    await mainPage.expectHaveUrl(externalPage,new RegExp(testData.url.extensionGoogleInstall));
+    await mainPage.expectHaveUrl(externalPage,new RegExp(main.url.extensionGoogleInstall));
     await mainPage.expectHaveTitle(externalPage, /Swisscows/);
   });
 
@@ -153,7 +156,7 @@ test.beforeEach(async ({ mainPage }) => {
     await mainPage.expectImagesOfSrviceBlockAreDisplayed();
   });
   
-  for (const {testID, expectedLink, locatorId, expectedTitle} of testData.servicesBlockLinks) {
+  for (const {testID, expectedLink, locatorId, expectedTitle} of main.servicesBlockLinks) {
     test(`${testID} Check that the ${locatorId} link navigate to the corresponding page.`, async ({
       mainPage,
     }) => {
@@ -167,4 +170,21 @@ test.beforeEach(async ({ mainPage }) => {
       await mainPage.expectHaveTitle(newPage, expectedTitle);
     });
   }
+  for (const {testID, expectedLink,locatorId,expectedTitle,} of  main.languagesLinks) {
+    test(`${testID} Check navigation to corresponding pages for  ${locatorId} localization`, async ({
+      headerStaticPages,
+      hamburgerMenu,
+      mainPage,
+      page,
+    }) => {
+      //Actions
+      await headerStaticPages.clickHamburgerMenuButton();
+      await hamburgerMenu.clickLanguagesDropdownInHamburgerMenu();
+      await hamburgerMenu.clickLanguageLinkInDropdown(locatorId);
+
+      //Assert
+      await mainPage.expectHaveUrl(page, expectedLink);
+      await mainPage.expectHaveTitle(page, new RegExp(expectedTitle));
+    });
+    }
   

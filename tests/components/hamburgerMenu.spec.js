@@ -3,7 +3,7 @@ const data = JSON.parse(
   JSON.stringify(require("../../data/header/testData.json"))
 );
 const testData = JSON.parse(
-  JSON.stringify(require("../../data/main-page/testData.json"))
+  JSON.stringify(require("../../data/header/testData.json"))
 );
 const dateTest = JSON.parse(
   JSON.stringify(require("../../data/hamburger/testData.json"))
@@ -19,7 +19,7 @@ test("Check  login User and display of nickname in hamburger menu", async ({
   hamburgerMenu,
 }) => {
   //Actions
-  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
   await header.clickHamburgerMenuButton();
   await hamburgerMenu.clickLoginButtonInHamburgerMenu();
@@ -35,7 +35,7 @@ test("Check Log Out user and display of login button", async ({
   hamburgerMenu,
 }) => {
   //Actions
-  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
   await header.clickHamburgerMenuButton();
   await hamburgerMenu.clickLoginButtonInHamburgerMenu();
@@ -136,24 +136,6 @@ test("Check theme change to dark theme", async ({
     await hamburgerMenu.expectAttributeClassOfElement(hamburgerMenu.defaultThemeInHemburgerMenu, "active")
     await hamburgerMenu.expectBackgroundColorOfPage(expectedLightBackground);
   });
-
-  for (const {testID, expectedLink,locatorId,expectedTitle,} of  dateTest.languagesLinksOfMainPage) {
-    test(`${testID} Check navigation to corresponding pages for  ${locatorId} localization`, async ({
-      headerStaticPages,
-      hamburgerMenu,
-      mainPage,
-      page,
-    }) => {
-      //Actions
-      await headerStaticPages.clickHamburgerMenuButton();
-      await hamburgerMenu.clickLanguagesDropdownInHamburgerMenu();
-      await hamburgerMenu.clickLanguageLinkInDropdown(locatorId);
-
-      //Assert
-      await mainPage.expectHaveUrl(page, expectedLink);
-      await mainPage.expectHaveTitle(page, new RegExp(expectedTitle));
-    });
-  }
 
   for (const {testID, expectedLink,locatorId,expectedTitle} of  dateTest.regionLinksOfMainPage) {
     test(`${testID} Check navigation to corresponding pages for ${locatorId} region`, async ({
