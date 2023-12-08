@@ -2,6 +2,7 @@ const base = require("@playwright/test");
 const { MainPage } = require("../pages/MainPage");
 const { EmailPage } = require("../pages/static-pages/EmailPage");
 const { Header } = require("../components/Header");
+const { Preloader } = require("../components/Preloader");
 const { HeaderStaticPages } = require("../components/HeaderStaticPages");
 const { ImagePage } = require("../pages/search/ImagePage");
 const { MusicPage } = require("../pages/search/MusicPage");
@@ -46,6 +47,9 @@ exports.test = base.test.extend({
   },
   botsProtection: async ({ request }, use) => {
     await use(new BotsProtection(request));
+  },
+  preloader: async ({ page }, use) => {
+    await use(new Preloader(page));
   },
 });
 

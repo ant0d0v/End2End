@@ -1,8 +1,7 @@
-
 import { Pagination } from "../../components/Pagination.js";
 const { expect, context } = require("@playwright/test");
 import { Filters } from "../../components/Filters.js";
-import { BasePage } from "../../components/BasePage.js";
+import { BasePage } from "../../base/BasePage.js";
 
 export class ShoppingPage extends BasePage {
   constructor(page) {
