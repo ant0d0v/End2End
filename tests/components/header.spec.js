@@ -5,14 +5,18 @@ const data = JSON.parse(
 const testData = JSON.parse(
   JSON.stringify(require("../../data/main-page/testData.json"))
 );
+test.beforeEach(async ({ mainPage }) => {
+  await mainPage.openBaseUrl();
+});
 
 test("Clicking on the swisscows's logo leads to the main page.", async ({
   mainPage,
+  headerStaticPages,
   header,
 }) => {
   //Actions
-  await mainPage.inputSearchCriteria(testData.searchCriteria.criteria);
-  await mainPage.clickEnterSearchField();
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.clickEnterSearchField();
   await header.clickSwisscowsLogo();
 
   //Assert
@@ -21,12 +25,12 @@ test("Clicking on the swisscows's logo leads to the main page.", async ({
 });
 
 test("Check query counter value when searching for images ", async ({
-  mainPage,
+  headerStaticPages,
   header,
 }) => {
   //Actions
-  await mainPage.inputSearchCriteria(testData.searchCriteria.criteria);
-  await mainPage.clickEnterSearchField();
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.clickEnterSearchField();
   await header.clickImageSearchButton();
 
   //Assert
@@ -34,12 +38,12 @@ test("Check query counter value when searching for images ", async ({
 });
 
 test("Check query counter value when searching for video ", async ({
-  mainPage,
+  headerStaticPages,
   header,
 }) => {
   //Actions
-  await mainPage.inputSearchCriteria(testData.searchCriteria.criteria);
-  await mainPage.clickEnterSearchField();
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.clickEnterSearchField();
   await header.clickVideoSearchButton();
 
   //Assert
@@ -48,12 +52,12 @@ test("Check query counter value when searching for video ", async ({
 
 test.use({ retries: 3 })
 test("Check query counter value when searching for music", async ({
-  mainPage,
+  headerStaticPages,
   header,
 }) => {
   //Actions
-  await mainPage.inputSearchCriteria(testData.searchCriteria.criteria);
-  await mainPage.clickEnterSearchField();
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.clickEnterSearchField();
   await header.clickMusicSearchButton();
 
   //Assert
@@ -61,13 +65,13 @@ test("Check query counter value when searching for music", async ({
 });
 
 test("Check query counter value when searching for news", async ({
-  mainPage,
   header,
+  headerStaticPages,
   hamburgerMenu
 }) => {
   //Actions
-  await mainPage.inputSearchCriteria(testData.searchCriteria.criteria);
-  await mainPage.clickEnterSearchField();
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.clickEnterSearchField();
   await hamburgerMenu.selectGermanyRegion()
   await header.clickNewsSearchButton();
   
@@ -76,29 +80,29 @@ test("Check query counter value when searching for news", async ({
 });
 
 test("Check query counter value when searching for shopping", async ({
-  mainPage,
   header,
-  hamburgerMenu
+  headerStaticPages,
+  hamburgerMenu,
 }) => {
   //Actions
-  await mainPage.inputSearchCriteria(testData.searchCriteria.criteria);
-  await mainPage.clickEnterSearchField();
-  await hamburgerMenu.selectGermanyRegion()
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.clickEnterSearchField();
+  await hamburgerMenu.selectGermanyRegion();
   await header.clickShoppingSearchButton();
-  
+
   //Assert
   await header.expectTextCharitySearchCounterToHave("3");
 });
 
 for (const {testID, expectedLink,locatorId,expectedTitle,} of data.headerLinks) {
   test(`${testID} Check that header badge ${locatorId} link navigate to corresponding pages`, async ({
-    mainPage,
     header,
+    headerStaticPages,
     context,
   }) => {
     //Actions
-    await mainPage.inputSearchCriteria(testData.searchCriteria.criteria);
-    await mainPage.clickEnterSearchField();
+    await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+    await headerStaticPages.clickEnterSearchField();
     await header.expectTextCharitySearchCounterToHave("1");
     await header.clickLinkInHeader(locatorId);
     const currentPage = await header.switchToAnotherWindow(context);
@@ -110,14 +114,14 @@ for (const {testID, expectedLink,locatorId,expectedTitle,} of data.headerLinks) 
 }
 
 test("Check that email icon navigates to login page if user logged in on the search page ", async ({
-  mainPage,
   header,
+  headerStaticPages,
   hamburgerMenu,
   context
 }) => {
   //Actions
-  await mainPage.inputSearchCriteria(testData.searchCriteria.criteria);
-  await mainPage.clickEnterSearchField();
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.clickEnterSearchField();
   await header.clickHamburgerMenuButton()
   await hamburgerMenu.clickLoginButtonInHamburgerMenu()
   await header.clickHamburgerMenuButton()
@@ -131,14 +135,16 @@ test("Check that email icon navigates to login page if user logged in on the sea
 
 test("Check that display of heart icon message in the header", async ({
   header,
-  mainPage
+  headerStaticPages
 }) => {
   //Actions
-  await mainPage.inputSearchCriteria(testData.searchCriteria.criteria);
-  await mainPage.clickEnterSearchField();
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.clickEnterSearchField();
   await header.expectTextCharitySearchCounterToHave("1");
-  await header.clickSearchCounter()
+  await header.clickSearchCounter();
 
- //Assert
-  await header.expectPopupCharitySearchCounterToHaveText("Charity ProjectThis is the number of your Swisscows searches. On average, 50 search queries finance a children's meal. Register and receive newsletters.");
+  //Assert
+  await header.expectPopupCharitySearchCounterToHaveText(
+    "Charity ProjectThis is the number of your Swisscows searches. On average, 50 search queries finance a children's meal. Register and receive newsletters."
+  );
 });

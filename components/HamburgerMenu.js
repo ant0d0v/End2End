@@ -6,40 +6,31 @@ import { WebPage } from "../pages/search/WebPage";
 export class HamburgerMenu extends Header {
   constructor(page) {
     super(page);
+
+    //Locators
+
     this.dropdownRegion = this.page.getByText("Region");
     this.germanyRegionInDropdown = this.page.getByText("Germany");
-    this.loginButtonInHamburgerMenu = this.page.getByRole("button", {
-      name: "Login",
-    });
-    this.nicknameInHamburgerMenu = this.page.getByRole("link", {
-      name: "T Test",
-    });
-    this.logoutButtonInHamburgerMenu = this.page.getByRole("button", {
-      name: "Logout",
-    });
+    this.loginButtonInHamburgerMenu = this.page.getByRole("button", {name: "Login",});
+    this.nicknameInHamburgerMenu = this.page.getByRole("link", {name: "T Test",});
+    this.logoutButtonInHamburgerMenu = this.page.getByRole("button", {name: "Logout",});
     this.textsOfLinksInHamburgerMenu = this.page.locator("div.menu.popup li a");
     this.languagesDropdownInHamburgerMenu = this.page.getByText("Language");
     this.regionDropdownInHamburgerMenu = this.page.getByText("Region");
     this.themeDropdownInHumburgerMenu = this.page.getByText("Theme Default");
     this.darkThemeInHemburgerMenu = this.page.getByText("Dark");
     this.lightThemeInHemburgerMenu = this.page.getByText("Light");
-    this.defaultThemeInHemburgerMenu = this.page
-      .locator("li")
-      .filter({ hasText: /^Default$/ });
-    this.textsOflanguagesDropdownInHamburgerMenu = this.page.locator(
-      "//ul[@class ='menu-dropdown-list']/li"
-    );
-    this.textsOfRegionDropdownInHamburgerMenu = this.page.locator(
-      "//ul[@class ='menu-dropdown-list']/li"
-    );
+    this.defaultThemeInHemburgerMenu = this.page.locator("li").filter({ hasText: /^Default$/ });
+    this.textsOflanguagesDropdownInHamburgerMenu = this.page.locator( "//ul[@class ='menu-dropdown-list']/li");
+    this.textsOfRegionDropdownInHamburgerMenu = this.page.locator("//ul[@class ='menu-dropdown-list']/li");
     this.bodyOfPage = this.page.locator("body");
-    this.languageLinkInDropdown = (nameLocator) =>
-      this.page.getByText(nameLocator);
-    this.regionLinkInDropdown = (nameLocator) =>
-      this.page.locator("li").filter({ hasText: nameLocator });
-    this.linkOfStaticPage = (nameLocator) =>
-      this.page.getByRole("banner").getByRole("link", { name: nameLocator });
+    this.languageLinkInDropdown = (nameLocator) =>this.page.getByText(nameLocator);
+    this.regionLinkInDropdown = (nameLocator) => this.page.locator("li").filter({ hasText: nameLocator });
+    this.linkOfStaticPage = (nameLocator) => this.page.getByRole("banner").getByRole("link", { name: nameLocator });
   }
+  
+  //Actions
+
   clickLanguageLinkInDropdown = async (id) => {
     await this.clickElement(
       this.languageLinkInDropdown(id),
