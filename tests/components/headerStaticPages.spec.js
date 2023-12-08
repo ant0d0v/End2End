@@ -25,9 +25,7 @@ for (const {testID, expectedLink,locatorId,expectedTitle,} of data.headerLinks) 
       await headerStaticPages.expectHaveTitle(currentPage,new RegExp(expectedTitle));
     });
 }
-test("Check charity query counter value at the Beginning", async ({
-    headerStaticPages
-}) => {
+test("Check charity query counter value at the Beginning", async ({headerStaticPages}) => {
   
     //Assert
     await headerStaticPages.expectTextCharitySearchCounterToHave("0");
@@ -46,13 +44,12 @@ test("Check charity query counter value after refresh page ", async ({
 
 test("Check charity query counter value after search and go back to main bage ", async ({
     headerStaticPages,
-    header,
     webPage
   }) => {
      //Actions
     await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
     await headerStaticPages.clickEnterSearchField();
-    await header.expectTextCharitySearchCounterToHave("1");
+    await headerStaticPages.expectTextCharitySearchCounterToHave("1");
     await webPage.goBack()
   
     //Assert

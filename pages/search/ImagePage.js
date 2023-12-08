@@ -1,4 +1,4 @@
-import { BasePage } from "../../components/BasePage.js";
+import { BasePage } from "../../base/BasePage.js";
 const { expect, context } = require("@playwright/test");
 import { Filters } from "../../components/Filters.js";
 import { Ads } from "../../components/Ads.js";

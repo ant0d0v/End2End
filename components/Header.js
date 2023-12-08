@@ -8,9 +8,12 @@ import { MusicPage } from "../pages/search/MusicPage";
 import { NewsPage } from "../pages/search/NewsPage";
 import { VideoPage } from "../pages/search/VideoPage";
 import { ShoppingPage } from "../pages/search/ShoppingPage";
-export  class Header extends HeaderStaticPages {
+import { BasePage } from '../base/BasePage';
+
+export  class Header extends BasePage {
     constructor(page) {
         super(page);
+        this.headerStaticPages = new HeaderStaticPages(page);
         //Locators
         this.logoSwisscows = this.page.locator('#header').getByRole('link', { name: 'Swisscows', exact: true })
         this.imageSearchButton = this.page.getByRole('link', { name: 'Images', exact: true })

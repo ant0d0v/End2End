@@ -1,8 +1,7 @@
 const { expect } = require("@playwright/test");
 import { DefaultSearchPage } from "./static-pages/DefaultSearchPage";
-import { BasePage } from "../components/BasePage";
+import { BasePage } from "../base/BasePage";
 import { HeaderStaticPages } from "../components/HeaderStaticPages";
-
 
 export class MainPage extends BasePage {
   constructor(page) {
@@ -37,15 +36,15 @@ export class MainPage extends BasePage {
     this.widgetMainPage = this.page.locator("//div[@class ='bnnr-widget']");
     this.imagesOfServiceBlock = this.page.locator("div.services-blocks img");
     this.serviceBlock = this.page.locator("div.services-blocks");
-    this.linksOfServiceBlock = (name) => page.getByRole("link", { name: name });
-    this.buttonOfServiceBlock = page.locator("a.services-block-link");
+    this.linksOfServiceBlock = (name) => this.page.getByRole("link", { name: name });
+    this.buttonOfServiceBlock = this.page.locator("a.services-block-link");
   }
 
   //Actions
 
   openBaseUrl = async () => {
     await this.page.goto(process.env.WEB_URL);
-  }
+  };
 
   clickAllQuestions = async () => {
     await this.clickAllElementsInList(this.allQuestions, `questions`);
@@ -89,7 +88,7 @@ export class MainPage extends BasePage {
     );
     return this;
   };
-  
+
   clickFourQuestion = async () => {
     await this.clickElement(
       this.fourQuestion,

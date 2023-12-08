@@ -1,4 +1,4 @@
-import { BasePage } from "./BasePage";
+import { BasePage } from "../base/BasePage";
 const { expect } = require("@playwright/test");
 
 export class Ads extends BasePage {

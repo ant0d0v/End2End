@@ -1,9 +1,10 @@
+import { BasePage } from '../base/BasePage';
 import { Header} from '../components/Header';
 const { expect } = require('@playwright/test');
 import { WebPage } from "../pages/search/WebPage";
 
 
-export class HamburgerMenu extends Header {
+export class HamburgerMenu extends BasePage {
   constructor(page) {
     super(page);
 
@@ -110,7 +111,6 @@ export class HamburgerMenu extends Header {
   };
 
   selectGermanyRegion = async () => {
-    await this.clickHamburgerMenuButton();
     await this.clickDropdownRegion();
     await this.clickGermanyRegionInDropdown();
     return new WebPage();
