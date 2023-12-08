@@ -3,7 +3,7 @@ const data = JSON.parse(
   JSON.stringify(require("../../data/header/testData.json"))
 );
 const testData = JSON.parse(
-  JSON.stringify(require("../../data/main-page/testData.json"))
+  JSON.stringify(require("../../data/header/testData.json"))
 );
 test.beforeEach(async ({ mainPage }) => {
   await mainPage.openBaseUrl();
@@ -15,7 +15,7 @@ test("Clicking on the swisscows's logo leads to the main page.", async ({
   header,
 }) => {
   //Actions
-  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
   await header.clickSwisscowsLogo();
 
@@ -29,7 +29,7 @@ test("Check query counter value when searching for images ", async ({
   header,
 }) => {
   //Actions
-  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
   await header.clickImageSearchButton();
 
@@ -42,7 +42,7 @@ test("Check query counter value when searching for video ", async ({
   header,
 }) => {
   //Actions
-  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
   await header.clickVideoSearchButton();
 
@@ -56,7 +56,7 @@ test("Check query counter value when searching for music", async ({
   header,
 }) => {
   //Actions
-  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
   await header.clickMusicSearchButton();
 
@@ -70,7 +70,7 @@ test("Check query counter value when searching for news", async ({
   hamburgerMenu,
 }) => {
   //Actions
-  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
   await header.clickHamburgerMenuButton();
   await hamburgerMenu.selectGermanyRegion();
@@ -86,7 +86,7 @@ test("Check query counter value when searching for shopping", async ({
   hamburgerMenu,
 }) => {
   //Actions
-  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
   await header.clickHamburgerMenuButton();
   await hamburgerMenu.selectGermanyRegion();
@@ -103,9 +103,7 @@ for (const {testID,expectedLink,locatorId,expectedTitle,} of data.headerLinks) {
     context,
   }) => {
     //Actions
-    await headerStaticPages.inputSearchCriteria(
-      testData.searchCriteria.criteria
-    );
+    await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
     await headerStaticPages.clickEnterSearchField();
     await header.headerStaticPages.expectTextCharitySearchCounterToHave("1");
     await header.headerStaticPages.clickLinkInHeader(locatorId);
@@ -124,7 +122,7 @@ test("Check that email icon navigates to login page if user logged in on the sea
   context,
 }) => {
   //Actions
-  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
   await header.clickHamburgerMenuButton();
   await hamburgerMenu.clickLoginButtonInHamburgerMenu();
@@ -139,7 +137,7 @@ test("Check that email icon navigates to login page if user logged in on the sea
 
 test("Check that display of heart icon message in the header", async ({header,headerStaticPages,}) => {
   //Actions
-  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
   await header.headerStaticPages.expectTextCharitySearchCounterToHave("1");
   await header.headerStaticPages.clickSearchCounter();

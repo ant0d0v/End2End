@@ -3,7 +3,7 @@ const data = JSON.parse(
   JSON.stringify(require("../../data/header/testData.json"))
 );
 const testData = JSON.parse(
-  JSON.stringify(require("../../data/main-page/testData.json"))
+  JSON.stringify(require("../../data/header/testData.json"))
 );
 test.beforeEach(async ({ mainPage }) => {
   await mainPage.openBaseUrl();
@@ -47,7 +47,7 @@ test("Check charity query counter value after search and go back to main bage ",
     webPage
   }) => {
      //Actions
-    await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+    await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
     await headerStaticPages.clickEnterSearchField();
     await headerStaticPages.expectTextCharitySearchCounterToHave("1");
     await webPage.goBack()
