@@ -3,6 +3,9 @@ const { test, expect } = require("../utils/fixtures");
 const testData = JSON.parse(
   JSON.stringify(require("../data/main-page/testData.json"))
 );
+test.beforeEach(async ({ mainPage }) => {
+  await mainPage.openBaseUrl();
+});
 
 test('Check that popup "firefox install" redirect to the corresponding page @firefox', async ({
   mainPage,

@@ -15,7 +15,6 @@ const {
 
 exports.test = base.test.extend({
   mainPage: async ({ page }, use) => {
-    await page.goto(process.env.WEB_URL);
     await use(new MainPage(page));
   },
   defaultSearchPage: async ({ page }, use) => {
@@ -25,11 +24,9 @@ exports.test = base.test.extend({
     await use(new EmailPage(page));
   },
   header: async ({ page }, use) => {
-    await page.goto(process.env.WEB_URL);
     await use(new Header(page));
   },
   headerStaticPages: async ({ page }, use) => {
-    await page.goto(process.env.WEB_URL);
     await use(new HeaderStaticPages(page));
   },
   imagePage: async ({ page }, use) => {

@@ -3,19 +3,21 @@ const { test, expect } = require("../utils/fixtures");
 const testData = JSON.parse(
   JSON.stringify(require("../data/main-page/testData.json"))
 );
+test.beforeEach(async ({ mainPage }) => {
+  await mainPage.openBaseUrl();
+});
 
-
-  test("Check that suggest is displayed", async ({ mainPage }) => {
+  test("Check that suggest is displayed", async ({ mainPage , headerStaticPages}) => {
     
-    await mainPage.inputSearchCriteria(testData.searchCriteria.criteria);
+    await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
     await mainPage.clickLogoSwisscows();
-    await mainPage.clickSearchField();
-    await mainPage.waitToBeVisibleSuggest();
+    await headerStaticPages.clickSearchField();
+    await headerStaticPages.waitToBeVisibleSuggest();
   
     //Assert
-    await mainPage.expectSuggestIsDisplayed();
-    await mainPage.expectSuggestToHaveCount(5);
-    await mainPage.expectSuggestToContains(testData.searchCriteria.criteria);
+    await headerStaticPages.expectSuggestIsDisplayed();
+    await headerStaticPages.expectSuggestToHaveCount(5);
+    await headerStaticPages.expectSuggestToContains(testData.searchCriteria.criteria);
   });
 
   test("Check that all questions were opened on the main page.", async ({

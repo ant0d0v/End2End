@@ -5,6 +5,9 @@ const data = JSON.parse(
 const testData = JSON.parse(
   JSON.stringify(require("../../data/main-page/testData.json"))
 );
+test.beforeEach(async ({ mainPage }) => {
+  await mainPage.openBaseUrl();
+});
  
 for (const {testID, expectedLink,locatorId,expectedTitle,} of data.headerLinks) {
     test(`${testID} Check that header static badge ${locatorId} link navigate to corresponding pages`, async ({
@@ -42,14 +45,13 @@ test("Check charity query counter value after refresh page ", async ({
 });
 
 test("Check charity query counter value after search and go back to main bage ", async ({
-    mainPage,
     headerStaticPages,
     header,
     webPage
   }) => {
      //Actions
-    await mainPage.inputSearchCriteria(testData.searchCriteria.criteria);
-    await mainPage.clickEnterSearchField();
+    await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+    await headerStaticPages.clickEnterSearchField();
     await header.expectTextCharitySearchCounterToHave("1");
     await webPage.goBack()
   

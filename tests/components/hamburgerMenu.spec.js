@@ -9,38 +9,42 @@ const dateTest = JSON.parse(
   JSON.stringify(require("../../data/hamburger/testData.json"))
 );
 
+test.beforeEach(async ({ mainPage }) => {
+  await mainPage.openBaseUrl();
+});
+
 test("Check  login User and display of nickname in hamburger menu", async ({
-    mainPage,
-    header,
-    hamburgerMenu
-  }) => {
-    //Actions
-    await mainPage.inputSearchCriteria(testData.searchCriteria.criteria);
-    await mainPage.clickEnterSearchField();
-    await header.clickHamburgerMenuButton()
-    await hamburgerMenu.clickLoginButtonInHamburgerMenu()
-    await header.clickHamburgerMenuButton()
-  
-    //Assert
-    await hamburgerMenu.expectNicknameUserInHamburgerMenuToHave("TTest");
+  headerStaticPages,
+  header,
+  hamburgerMenu,
+}) => {
+  //Actions
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.clickEnterSearchField();
+  await header.clickHamburgerMenuButton();
+  await hamburgerMenu.clickLoginButtonInHamburgerMenu();
+  await header.clickHamburgerMenuButton();
+
+  //Assert
+  await hamburgerMenu.expectNicknameUserInHamburgerMenuToHave("TTest");
 });
   
 test("Check Log Out user and display of login button", async ({
-    mainPage,
-    header,
-    hamburgerMenu
-  }) => {
-    //Actions
-    await mainPage.inputSearchCriteria(testData.searchCriteria.criteria);
-    await mainPage.clickEnterSearchField();
-    await header.clickHamburgerMenuButton()
-    await hamburgerMenu.clickLoginButtonInHamburgerMenu()
-    await header.clickHamburgerMenuButton()
-    await hamburgerMenu.clickLogoutButtonInHamburgerMenu()
-    await header.clickHamburgerMenuButton()
-  
-    //Assert
-    await hamburgerMenu.expectLoginButtonInHamburgerMenuIsDisplayed();
+  headerStaticPages,
+  header,
+  hamburgerMenu,
+}) => {
+  //Actions
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.criteria);
+  await headerStaticPages.clickEnterSearchField();
+  await header.clickHamburgerMenuButton();
+  await hamburgerMenu.clickLoginButtonInHamburgerMenu();
+  await header.clickHamburgerMenuButton();
+  await hamburgerMenu.clickLogoutButtonInHamburgerMenu();
+  await header.clickHamburgerMenuButton();
+
+  //Assert
+  await hamburgerMenu.expectLoginButtonInHamburgerMenuIsDisplayed();
 });
   
 test("Texts of the links in the hamburger menu.", async ({
