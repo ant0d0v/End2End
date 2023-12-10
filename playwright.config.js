@@ -63,10 +63,6 @@ module.exports = defineConfig({
       teardown: "cleanup",
     },
     {
-      name: "api",
-      testMatch: /.*\.api\.js/,
-    },
-    {
       name: "firefox",
       testMatch: /.*\.ff\.js/,
       use: {
@@ -77,7 +73,6 @@ module.exports = defineConfig({
         trace: "retain-on-failure",
       },
     },
-
     {
       name: "chromium",
       use: {
@@ -90,55 +85,68 @@ module.exports = defineConfig({
       dependencies: ["setup"],
     },
     {
+      name: "edge",
+      testMatch: /.*\.msedge\.js/,
+      use: {
+        ...devices["Desktop Edge"],
+        channel: "msedge",
+        headless: false,
+        viewport: { width: 1360, height: 900 },
+        screenshot: "on",
+        trace: "retain-on-failure",
+      },
+    },
+    {
+      name: "api",
+      testMatch: /.*\.api\.js/,
+    },
+    {
       name: "cleanup",
       testMatch: /.*\.teardown\.js/,
     },
-
-    // {
-    //   name: 'webkit',
-    //   use: {
-    //     ...devices['Desktop Safari'],
-    //     headless: true,
-    //     viewport: { width: 1360, height: 600 },
-    //     screenshot : 'on',
-    //     trace : 'retain-on-failure'
-    //   },
-    // },
-    // {
-    //   name: "chromium",
-    //   use: { ...devices["Desktop Chrome"] },
-    // }
-
-    // {
-    //   name: "firefox",
-    //   use: { ...devices["Desktop Firefox"] },
-    // },
-
-    // {
-    //   name: "webkit",
-    //   use: { ...devices["Desktop Safari"] },
-    // },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
   ],
+
+  // {
+  //   name: 'webkit',
+  //   use: {
+  //     ...devices['Desktop Safari'],
+  //     headless: true,
+  //     viewport: { width: 1360, height: 600 },
+  //     screenshot : 'on',
+  //     trace : 'retain-on-failure'
+  //   },
+  // },
+  // {
+  //   name: "chromium",
+  //   use: { ...devices["Desktop Chrome"] },
+  // }
+
+  // {
+  //   name: "firefox",
+  //   use: { ...devices["Desktop Firefox"] },
+  // },
+
+  // {
+  //   name: "webkit",
+  //   use: { ...devices["Desktop Safari"] },
+  // },
+
+  /* Test against mobile viewports. */
+  // {
+  //   name: 'Mobile Chrome',
+  //   use: { ...devices['Pixel 5'] },
+  // },
+  // {
+  //   name: 'Mobile Safari',
+  //   use: { ...devices['iPhone 12'] },
+  // },
+
+  /* Test against branded browsers. */
+
+  // {
+  //   name: 'Google Chrome',
+  //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+  // },
 
   /* Run your local dev server before starting the tests */
   // webServer: {
@@ -146,4 +154,5 @@ module.exports = defineConfig({
   //   url: 'http://127.0.0.1:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
+  // grep: [/@firefox/],
 });

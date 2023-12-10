@@ -1,0 +1,15 @@
+{
+  "cookies": [
+    {
+      "name": ".AspNetCore.Identity.Application",
+      "value": "CfDJ8EGEzrtPQclOoc9Pe_Ng2EiWIN0deCgeY0r-RYL7VoN76NOuMqgMQXrKpCHz2mQdSvSXKKED6i7jg7p6kAnAOwLN7STxw7GHXQUlV0rG9VyGj-8iFKy84zIC-Vk33MJHPKnbLr47HPSXdbVcevg0Opii06arH32gMgw3_9Z5MpXSoWWXxRwcSyyNSSQS13o7Me7c1rjhND4HZ6vDhAQHqrmSo7T60b-x7_UCEIfEIuwfnYAw-Ndt0XkMp9JQKVuphYQLWvDnI7ItzO5s6sHj9PVSWbzYMZxkTWxjTHpb8wDBEO87dbhL3yRH8Y2yusgIvHaRH2TI4aeGdj6GKvNHKSc-IxHyU23fJJdFFZ5Cf_qymiVHJw9Qi1OMdLfVISu18-_1eJoTkheo_dRWPJgG0y_pLknhaVsP8uI4GvVsJ02A6MpnYIIM7vanHNnGeB8bLJYqWz9QfITX4airZG2FkOJBe28OLUkWD2lzx4q3nC1Gdgh2IPPBLVLkngVaBHMPI_ivV4j7AMLu_9z6ExYu1tyRV3XpDNlOKyVXxJ7hre2ZBsrRJgNVY1Xpv3hkvLG3Q6enWJHa2-4awWv1Oy0_JZ14VpsO9ZYIxkBOk5RrbzKTK8SqR-LIF6HfCwp3uYJZK2HFTJcud11kVQQQTk8ERd4qqIVAeu2QHjTYuEIqoTphl5LcZaMosSAJRU_TP2CONXiPCWIf8dpk5rGRs5XJb5hz81R_dkTNa_GyYesb795hRSANBzHh9rXYwt5OZlM2sgv4G6ythPDx8VVwMmWcaO-xJK9nEo8mvnyVBpFy1JArEfWkWn60a6lI_UWDDVHyFjd4GHGYWkMv4h-EyuDy-z11gkef0_ExLZwuUyYN5egam8AXBbotyAaP5vW6ImjDRuRQ5ro_IJXJ8L5lKzNlPLLAHj5WTkHf1XasU9my1MJAF2MkR7L24kTchJQttWDIyVH9rMq2Jxna9CR1apFTcMr6VCDfjJliG1gQidDrMTx9FH5NOmYiE9HsjYSxc07_pVCzQwo-GtBYni5jz9_ZvavmZLm_nkvn6-njQ7ysqfWuRZMlxTcSoMICSMPsApMFMR8h1UA3h6vGnGbyD7gn1fpm94PrhBXoQeyFWj0tMb9DFjEr7mJkDcBobdFIhQr39uyBOixi09LbttMzkK0bGVW9XNiEyPWSXjk0nhKB78NJeFwlEOJbcqS_Rei5nsHqrz8TfpKgQOzlJuVxIQG_UPZn4FVCLVCS4ih6F9zVa5fjv2Zl0Nm0FxnnRJ3k57mNblCI1cxv77t5VKhDwz5P7wzL8xgfwfDa6AsMR4VO3KUGl9gKVjFbCmUh5FNIL1UvLuq-RZ8XYdpc1AWn0F5pPFnCZozW9NMyoiozQKwsVhOe",
+      "domain": "accounts.dev.swisscows.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}

@@ -3,6 +3,7 @@
     "url": {
         "extensionGoogleInstall" : "/detail/swisscows/ibimaeimnogcdnjmmlpodbhhbejnpaij\\?hl=en.*",
         "extensionFirefoxInstall" : "/addons.mozilla.org/en-US/firefox/addon/swisscows-search/.*",
+        "extensionEdgeInstall" : "https://microsoftedge.microsoft.com/addons/detail/swisscows/dlclfmjmfabgglmifagcjnjcpimekdmn",
         "defaultSearchPage" : "https://dev.swisscows.com/en/default-search"
 
     },

@@ -42,10 +42,6 @@ export class MainPage extends BasePage {
 
   //Actions
 
-  openBaseUrl = async () => {
-    await this.page.goto(process.env.WEB_URL);
-  };
-
   clickAllQuestions = async () => {
     await this.clickAllElementsInList(this.allQuestions, `questions`);
     return this;
