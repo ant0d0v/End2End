@@ -1,4 +1,4 @@
-const base = require("@playwright/test");
+const base = require("./fixtureBase");
 const { MainPage } = require("../pages/MainPage");
 const { EmailPage } = require("../pages/static-pages/EmailPage");
 const { Header } = require("../components/Header");

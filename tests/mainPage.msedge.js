@@ -1,10 +1,9 @@
-// @ts-check
 const { test, expect } = require("../utils/fixturePages");
-
 const testData = JSON.parse(
   JSON.stringify(require("../data/main-page/testData.json"))
 );
-test('Check that popup "firefox install" redirect to the corresponding page @firefox', async ({
+
+test('Check that popup "Edge install" redirect to the corresponding page @firefox', async ({
   mainPage,
   context,
 }) => {
@@ -16,12 +15,12 @@ test('Check that popup "firefox install" redirect to the corresponding page @fir
   //Assert
   await mainPage.expectHaveUrl(
     newPage,
-    new RegExp(testData.url.extensionFirefoxInstall)
+    new RegExp(testData.url.extensionEdgeInstall)
   );
   await mainPage.expectHaveTitle(newPage, /Swisscows/);
 });
 
-test("Check that popup firefox install Is Dysplaed", async ({ mainPage }) => {
+test("Check that popup Edge install Is Dysplaed", async ({ mainPage }) => {
   const expectedText =
     "Stay with us and set Swisscows as your default search engine. ";
 
@@ -42,7 +41,7 @@ test('Check that the "Install Swisscows Block" button redirect to coresponding U
   //Assert
   await mainPage.expectHaveUrl(
     externalPage,
-    new RegExp(testData.url.extensionFirefoxInstall)
+    new RegExp(testData.url.extensionEdgeInstall)
   );
   await mainPage.expectHaveTitle(externalPage, /Swisscows/);
 });

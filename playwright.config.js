@@ -3,7 +3,7 @@ const { defineConfig, devices } = require("@playwright/test");
 
 
 const qaseConfig = {
-  apiToken: "983b5c6381d86561c2b06f83421094d2eb8f503cbf7e27c0e07bcd8b4ee3e75c",
+  apiToken: "2b46839b9d9e02b42ad387107322a116667b40a193f780dd1cfdad80bf40dc8d",
   projectCode: "SWISSCOWS",
   runComplete: true,
   basePath: "https://api.qase.io/v1",
@@ -38,7 +38,7 @@ module.exports = defineConfig({
   workers: process.env.CI ? 1 : undefined,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [["html"], ["list"], ["playwright-qase-reporter", qaseConfig]],
+  reporter: [["playwright-qase-reporter", qaseConfig]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: "https://dev.swisscows.com/",
@@ -63,10 +63,6 @@ module.exports = defineConfig({
       teardown: "cleanup",
     },
     {
-      name: "api",
-      testMatch: /.*\.api\.js/,
-    },
-    {
       name: "firefox",
       testMatch: /.*\.ff\.js/,
       use: {
@@ -77,7 +73,6 @@ module.exports = defineConfig({
         trace: "retain-on-failure",
       },
     },
-
     {
       name: "chromium",
       use: {
@@ -90,60 +85,31 @@ module.exports = defineConfig({
       dependencies: ["setup"],
     },
     {
+      name: "edge",
+      testMatch: /.*\.msedge\.js/,
+      use: {
+        ...devices["Desktop Edge"],
+        channel: "msedge",
+        headless: false,
+        viewport: { width: 1360, height: 900 },
+        screenshot: "on",
+        trace: "retain-on-failure",
+      },
+    },
+    {
+      name: "api",
+      testMatch: /.*\.api\.js/,
+    },
+    {
       name: "cleanup",
       testMatch: /.*\.teardown\.js/,
     },
-
-    // {
-    //   name: 'webkit',
-    //   use: {
-    //     ...devices['Desktop Safari'],
-    //     headless: true,
-    //     viewport: { width: 1360, height: 600 },
-    //     screenshot : 'on',
-    //     trace : 'retain-on-failure'
-    //   },
-    // },
-    // {
-    //   name: "chromium",
-    //   use: { ...devices["Desktop Chrome"] },
-    // }
-
-    // {
-    //   name: "firefox",
-    //   use: { ...devices["Desktop Firefox"] },
-    // },
-
-    // {
-    //   name: "webkit",
-    //   use: { ...devices["Desktop Safari"] },
-    // },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
-  ],
-
+  ]
   /* Run your local dev server before starting the tests */
   // webServer: {
   //   command: 'npm run start',
   //   url: 'http://127.0.0.1:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
+  // grep: [/@firefox/],
 });

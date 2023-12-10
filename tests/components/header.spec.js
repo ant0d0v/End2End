@@ -1,13 +1,10 @@
-const { test, expect } = require("../../utils/fixtures");
+const { test, expect } = require("../../utils/fixturePages");
 const data = JSON.parse(
   JSON.stringify(require("../../data/header/testData.json"))
 );
 const testData = JSON.parse(
   JSON.stringify(require("../../data/header/testData.json"))
 );
-test.beforeEach(async ({ mainPage }) => {
-  await mainPage.openBaseUrl();
-});
 
 test("Clicking on the swisscows's logo leads to the main page.", async ({
   mainPage,
@@ -21,7 +18,10 @@ test("Clicking on the swisscows's logo leads to the main page.", async ({
 
   //Assert
   await mainPage.expectHaveUrl(mainPage.page, process.env.WEB_URL + "en");
-  await mainPage.expectHaveTitle(mainPage.page,"Your private and anonymous search engine Swisscows");
+  await mainPage.expectHaveTitle(
+    mainPage.page,
+    "Your private and anonymous search engine Swisscows"
+  );
 });
 
 test("Check query counter value when searching for images ", async ({
@@ -96,7 +96,12 @@ test("Check query counter value when searching for shopping", async ({
   await header.headerStaticPages.expectTextCharitySearchCounterToHave("3");
 });
 
-for (const {testID,expectedLink,locatorId,expectedTitle,} of data.headerLinks) {
+for (const {
+  testID,
+  expectedLink,
+  locatorId,
+  expectedTitle,
+} of data.headerLinks) {
   test(`${testID} Check that header badge ${locatorId} link navigate to corresponding pages`, async ({
     header,
     headerStaticPages,
@@ -131,11 +136,17 @@ test("Check that email icon navigates to login page if user logged in on the sea
   const currentPage = await header.switchToAnotherWindow(context);
 
   //Assert
-  await header.expectHaveUrl(currentPage,new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*"));
+  await header.expectHaveUrl(
+    currentPage,
+    new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*")
+  );
   await header.expectHaveTitle(currentPage, /Login - Swisscows Accounts/);
 });
 
-test("Check that display of heart icon message in the header", async ({header,headerStaticPages,}) => {
+test("Check that display of heart icon message in the header", async ({
+  header,
+  headerStaticPages,
+}) => {
   //Actions
   await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
