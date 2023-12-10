@@ -38,7 +38,7 @@ module.exports = defineConfig({
   workers: process.env.CI ? 1 : undefined,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [["html"], ["list"], ["playwright-qase-reporter", qaseConfig]],
+  reporter: [["playwright-qase-reporter", qaseConfig]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: "https://dev.swisscows.com/",
@@ -104,50 +104,7 @@ module.exports = defineConfig({
       name: "cleanup",
       testMatch: /.*\.teardown\.js/,
     },
-  ],
-
-  // {
-  //   name: 'webkit',
-  //   use: {
-  //     ...devices['Desktop Safari'],
-  //     headless: true,
-  //     viewport: { width: 1360, height: 600 },
-  //     screenshot : 'on',
-  //     trace : 'retain-on-failure'
-  //   },
-  // },
-  // {
-  //   name: "chromium",
-  //   use: { ...devices["Desktop Chrome"] },
-  // }
-
-  // {
-  //   name: "firefox",
-  //   use: { ...devices["Desktop Firefox"] },
-  // },
-
-  // {
-  //   name: "webkit",
-  //   use: { ...devices["Desktop Safari"] },
-  // },
-
-  /* Test against mobile viewports. */
-  // {
-  //   name: 'Mobile Chrome',
-  //   use: { ...devices['Pixel 5'] },
-  // },
-  // {
-  //   name: 'Mobile Safari',
-  //   use: { ...devices['iPhone 12'] },
-  // },
-
-  /* Test against branded browsers. */
-
-  // {
-  //   name: 'Google Chrome',
-  //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-  // },
-
+  ]
   /* Run your local dev server before starting the tests */
   // webServer: {
   //   command: 'npm run start',
