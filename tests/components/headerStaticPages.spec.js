@@ -5,29 +5,28 @@ const data = JSON.parse(
 const testData = JSON.parse(
   JSON.stringify(require("../../data/header/testData.json"))
 );
+test.describe("test don't use cookie ", () => {
+  test.use({ storageState: { cookies: [], origins: [] } });
+  for (const { testID,expectedLink,locatorId,expectedTitle,} of data.headerLinks) {
+    test(`${testID} Check that header static badge ${locatorId} link navigate to corresponding pages`, async ({
+      headerStaticPages,
+      context,
+    }) => {
+      //Actions
+      await headerStaticPages.clickLinkInHeader(locatorId);
+      const currentPage = await headerStaticPages.switchToAnotherWindow(
+        context
+      );
 
-for (const {
-  testID,
-  expectedLink,
-  locatorId,
-  expectedTitle,
-} of data.headerLinks) {
-  test(`${testID} Check that header static badge ${locatorId} link navigate to corresponding pages`, async ({
-    headerStaticPages,
-    context,
-  }) => {
-    //Actions
-    await headerStaticPages.clickLinkInHeader(locatorId);
-    const currentPage = await headerStaticPages.switchToAnotherWindow(context);
-
-    //Assert
-    await headerStaticPages.expectHaveUrl(currentPage, expectedLink);
-    await headerStaticPages.expectHaveTitle(
-      currentPage,
-      new RegExp(expectedTitle)
-    );
-  });
-}
+      //Assert
+      await headerStaticPages.expectHaveUrl(currentPage, expectedLink);
+      await headerStaticPages.expectHaveTitle(
+        currentPage,
+        new RegExp(expectedTitle)
+      );
+    });
+  }
+});
 test("Check charity query counter value at the Beginning", async ({
   headerStaticPages,
 }) => {

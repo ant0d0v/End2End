@@ -15,8 +15,6 @@ test("Check  login User and display of nickname in hamburger menu", async ({
   await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
   await header.clickHamburgerMenuButton();
-  await hamburgerMenu.clickLoginButtonInHamburgerMenu();
-  await header.clickHamburgerMenuButton();
 
   //Assert
   await hamburgerMenu.expectNicknameUserInHamburgerMenuToHave("TTest");
@@ -30,8 +28,6 @@ test("Check Log Out user and display of login button", async ({
   //Actions
   await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
-  await header.clickHamburgerMenuButton();
-  await hamburgerMenu.clickLoginButtonInHamburgerMenu();
   await header.clickHamburgerMenuButton();
   await hamburgerMenu.clickLogoutButtonInHamburgerMenu();
   await header.clickHamburgerMenuButton();

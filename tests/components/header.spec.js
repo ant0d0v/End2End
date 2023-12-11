@@ -96,43 +96,16 @@ test("Check query counter value when searching for shopping", async ({
   await header.headerStaticPages.expectTextCharitySearchCounterToHave("3");
 });
 
-for (const {
-  testID,
-  expectedLink,
-  locatorId,
-  expectedTitle,
-} of data.headerLinks) {
-  test(`${testID} Check that header badge ${locatorId} link navigate to corresponding pages`, async ({
-    header,
-    headerStaticPages,
-    context,
-  }) => {
-    //Actions
-    await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
-    await headerStaticPages.clickEnterSearchField();
-    await header.headerStaticPages.expectTextCharitySearchCounterToHave("1");
-    await header.headerStaticPages.clickLinkInHeader(locatorId);
-    const currentPage = await header.switchToAnotherWindow(context);
-
-    //Assert
-    await header.expectHaveUrl(currentPage, expectedLink);
-    await header.expectHaveTitle(currentPage, new RegExp(expectedTitle));
-  });
-}
-
 test("Check that email icon navigates to login page if user logged in on the search page ", async ({
   header,
   headerStaticPages,
-  hamburgerMenu,
   context,
 }) => {
   //Actions
   await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
-  await header.clickHamburgerMenuButton();
-  await hamburgerMenu.clickLoginButtonInHamburgerMenu();
-  await header.clickHamburgerMenuButton();
-  await header.clickBadgeEmail();
+  await header.headerStaticPages.expectTextCharitySearchCounterToHave("1");
+  await header.headerStaticPages.clickBadgeEmail();
   const currentPage = await header.switchToAnotherWindow(context);
 
   //Assert
@@ -141,6 +114,28 @@ test("Check that email icon navigates to login page if user logged in on the sea
     new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*")
   );
   await header.expectHaveTitle(currentPage, /Login - Swisscows Accounts/);
+});
+
+test.describe("tests don't use cookie  cookie", () => {
+  test.use({ storageState: { cookies: [], origins: [] } });
+  for (const { testID, expectedLink, locatorId, expectedTitle, } of data.headerLinks) {
+    test(`${testID} Check that header badge ${locatorId} link navigate to corresponding pages`, async ({
+      header,
+      headerStaticPages,
+      context,
+    }) => {
+      //Actions
+      await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
+      await headerStaticPages.clickEnterSearchField();
+      await header.headerStaticPages.expectTextCharitySearchCounterToHave("1");
+      await header.headerStaticPages.clickLinkInHeader(locatorId);
+      const currentPage = await header.switchToAnotherWindow(context);
+
+      //Assert
+      await header.expectHaveUrl(currentPage, expectedLink);
+      await header.expectHaveTitle(currentPage, new RegExp(expectedTitle));
+    });
+  }
 });
 
 test("Check that display of heart icon message in the header", async ({
