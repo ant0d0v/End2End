@@ -5,7 +5,7 @@ import deleteAuthDirectory from "rimraf";
 const authFile = "./data/auth";
 const rimrafAsync = promisify(deleteAuthDirectory);
 
-teardown(`Delete ${authFile}`, async () => {
+teardown(`Delete file with cookie ${authFile}`, async () => {
   try {
     await rimrafAsync(authFile);
     console.log(`Deleted ${authFile} successfully.`);
