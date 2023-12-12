@@ -65,7 +65,7 @@ export class BasePage {
       await this.page.waitForURL(Url);
     });
   }
-  
+
   async selectOption(element, text) {
     await test.step("Waits until all specified options are present in the <select> element and selects these options. ", async () => {
       await element.selectOption(text);
@@ -138,9 +138,19 @@ export class BasePage {
       await expect(element).toHaveAttribute("class", value);
     });
   }
+  async expectAttributeToHaveValue(element, attribute, value) {
+    await test.step(`Expect the element  to "have" attribute ${value} with value `, async () => {
+      await expect(element).toHaveAttribute(attribute, value);
+    });
+  }
   async expectIsElementDisplayed(element) {
     await test.step('Expect the element  to "be" visible', async () => {
       await expect(element).toBeVisible();
+    });
+  }
+  async expectElemenToBeHidden(element) {
+    await test.step('Expect the element  to "be" hidden', async () => {
+      await expect(element).toBeHidden;
     });
   }
 

@@ -3,7 +3,7 @@ const testData = JSON.parse(
   JSON.stringify(require("../data/main-page/testData.json"))
 );
 
-test('Check that popup "Edge install" redirect to the corresponding page @firefox', async ({
+test('Check that popup "Edge install" redirect to the corresponding page', async ({
   mainPage,
   context,
 }) => {

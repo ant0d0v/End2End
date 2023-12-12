@@ -34,15 +34,11 @@ export class HamburgerMenu extends BasePage {
 
   clickLanguageLinkInDropdown = async (id) => {
     await this.clickElement(
-      this.languageLinkInDropdown(id),
-      `lang link of Languages drop-down`
-    );
+      this.languageLinkInDropdown(id),`lang link of Languages drop-down` );
   };
   clickRegioLinkInDropdown = async (id) => {
     await this.clickElement(
-      this.regionLinkInDropdown(id),
-      `region link of Region drop-down`
-    );
+      this.regionLinkInDropdown(id),`region link of Region drop-down`);
   };
   clickLinkOfStaticPage = async (id) => {
     await this.clickElement(this.linkOfStaticPage(id), `link of static pages`);
@@ -50,64 +46,45 @@ export class HamburgerMenu extends BasePage {
 
   clickLoginButtonInHamburgerMenu = async () => {
     await this.clickElement(
-      this.loginButtonInHamburgerMenu,
-      `login button in hamburger menu`
-    );
+      this.loginButtonInHamburgerMenu,`login button in hamburger menu`);
   };
   clickLogoutButtonInHamburgerMenu = async () => {
     await this.clickElement(
-      this.logoutButtonInHamburgerMenu,
-      `logout button in hamburger menu`
-    );
+      this.logoutButtonInHamburgerMenu,`logout button in hamburger menu`);
   };
 
   clickDropdownRegion = async () => {
     await this.clickElement(
-      this.dropdownRegion,
-      `drop-down of regions in hamburger menu`
-    );
+      this.dropdownRegion, `drop-down of regions in hamburger menu`);
   };
   clickGermanyRegionInDropdown = async () => {
     await this.clickElement(
-      this.germanyRegionInDropdown,
-      `germany region in the drop-down of regions`
-    );
+      this.germanyRegionInDropdown,`germany region in the drop-down of regions`);
   };
   clickLanguagesDropdownInHamburgerMenu = async () => {
     await this.clickElement(
-      this.languagesDropdownInHamburgerMenu,
-      `drop-down of languages in hamburger menu`
-    );
+      this.languagesDropdownInHamburgerMenu,`drop-down of languages in hamburger menu`);
   };
   clickRegionDropdownInHamburgerMenu = async () => {
     await this.clickElement(
-      this.regionDropdownInHamburgerMenu,
-      `region in the drop-down of regions`
-    );
+      this.regionDropdownInHamburgerMenu,`region in the drop-down of regions`);
   };
   clickThemeDropdownInHamburgerMenu = async () => {
     await this.clickElement(
-      this.themeDropdownInHumburgerMenu,
-      `drop-down of themes in hamburger menu`
-    );
+      this.themeDropdownInHumburgerMenu,`drop-down of themes in hamburger menu`);
   };
   clickDarkInHamburgerMenu = async () => {
     await this.clickElement(
-      this.darkThemeInHemburgerMenu,
-      `dark theme in the dropdown of themes in hamburger menu`
+      this.darkThemeInHemburgerMenu,`dark theme in the dropdown of themes in hamburger menu`
     );
   };
   clickLightInHamburgerMenu = async () => {
     await this.clickElement(
-      this.lightThemeInHemburgerMenu,
-      `light theme in the dropdown of themes in hamburger menu`
-    );
+      this.lightThemeInHemburgerMenu, `light theme in the dropdown of themes in hamburger menu`);
   };
   getTextsOfLinksInHamburgerMenu = async () => {
     return this.getTextsOfElements(
-      this.textsOfLinksInHamburgerMenu.all(),
-      `links of hamburger menu `
-    );
+      this.textsOfLinksInHamburgerMenu.all(), `links of hamburger menu `);
   };
 
   selectGermanyRegion = async () => {
@@ -127,21 +104,15 @@ export class HamburgerMenu extends BasePage {
   };
   expectTextsOfLinksInHamburgerMenu = async (expectedText) => {
     await this.expectTextOfElement(
-      this.textsOfLinksInHamburgerMenu,
-      expectedText
-    );
+      this.textsOfLinksInHamburgerMenu, expectedText);
   };
   expectTextsOfLanguagesInHamburgerMenu = async (expectedText) => {
     await this.expectTextOfElement(
-      this.textsOflanguagesDropdownInHamburgerMenu,
-      expectedText
-    );
+      this.textsOflanguagesDropdownInHamburgerMenu, expectedText);
   };
-  expectTextsOfRegionInHamburgerMenu = async (expectedText) => {
+  expectTextsOfRegionInHamburgerMenu = async ( expectedText) => {
     await this.expectTextOfElement(
-      this.textsOfRegionDropdownInHamburgerMenu,
-      expectedText
-    );
+      this.textsOfRegionDropdownInHamburgerMenu, expectedText);
   };
   expectBackgroundColorOfPage = async (expectedValue) => {
     await expect(this.bodyOfPage).toHaveCSS("background", expectedValue);

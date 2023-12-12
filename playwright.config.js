@@ -63,6 +63,10 @@ module.exports = defineConfig({
       teardown: "cleanup",
     },
     {
+      name: "cleanup",
+      testMatch: /.*\.teardown\.js/,
+    },
+    {
       name: "firefox",
       testMatch: /.*\.ff\.js/,
       use: {
@@ -92,19 +96,14 @@ module.exports = defineConfig({
         channel: "msedge",
         headless: false,
         viewport: { width: 1360, height: 900 },
-        screenshot: "on",
-        trace: "retain-on-failure",
+        screenshot: "only-on-failure",
       },
     },
     {
       name: "api",
       testMatch: /.*\.api\.js/,
     },
-    {
-      name: "cleanup",
-      testMatch: /.*\.teardown\.js/,
-    },
-  ]
+  ],
   /* Run your local dev server before starting the tests */
   // webServer: {
   //   command: 'npm run start',
