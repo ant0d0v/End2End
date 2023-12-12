@@ -64,3 +64,20 @@ test("Check that display of heart icon message in the header static pages", asyn
     "Charity ProjectThis is the number of your Swisscows searches. On average, 50 search queries finance a children's meal. Register and receive newsletters."
   );
 });
+
+test.describe("test use cookie", () => {
+  test.use({ storageState: "./data/auth/user.json" });
+  test("Check that email icon navigates to account/login page if user logged ", async ({
+    header,
+    headerStaticPages,
+    context,
+  }) => {
+    //Actions
+    await headerStaticPages.clickBadgeEmail();
+    const currentPage = await header.switchToAnotherWindow(context);
+
+    //Assert
+    await headerStaticPages.expectHaveUrl(currentPage,new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*"));
+    await headerStaticPages.expectHaveTitle(currentPage, /Login - Swisscows Accounts/);
+  });
+});

@@ -96,7 +96,27 @@ test("Check query counter value when searching for shopping", async ({
   await header.headerStaticPages.expectCharitySearchCounterToHave("3");
 });
 
-test.describe("tests don't use cookie  cookie", () => {
+test.describe("test use cookie", () => {
+  test.use({ storageState: "./data/auth/user.json" });
+  test("Check that email icon navigates to account/login page if user logged ", async ({
+    header,
+    headerStaticPages,
+    context,
+  }) => {
+    //Actions
+    await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
+    await headerStaticPages.clickEnterSearchField();
+    await header.headerStaticPages.expectCharitySearchCounterToHave("1");
+    await header.headerStaticPages.clickBadgeEmail();
+    const currentPage = await header.switchToAnotherWindow(context);
+
+    //Assert
+    await header.expectHaveUrl(currentPage,new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*"));
+    await header.expectHaveTitle(currentPage, /Login - Swisscows Accounts/);
+  });
+});
+
+test.describe("tests don't use cookie", () => {
   test.use({ storageState: { cookies: [], origins: [] } });
   for (const { testID, expectedLink, locatorId, expectedTitle, } of data.headerLinks) {
     test(`${testID} Check that header badge ${locatorId} link navigate to corresponding pages`, async ({
@@ -116,23 +136,6 @@ test.describe("tests don't use cookie  cookie", () => {
       await header.expectHaveTitle(currentPage, new RegExp(expectedTitle));
     });
   }
-});
-
-test("Check that email icon navigates to login page if user logged in on the search page ", async ({
-  header,
-  headerStaticPages,
-  context,
-}) => {
-  //Actions
-  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
-  await headerStaticPages.clickEnterSearchField();
-  await header.headerStaticPages.expectCharitySearchCounterToHave("1");
-  await header.headerStaticPages.clickBadgeEmail();
-  const currentPage = await header.switchToAnotherWindow(context);
-
-  //Assert
-  await header.expectHaveUrl(currentPage,new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*"));
-  await header.expectHaveTitle(currentPage, /Login - Swisscows Accounts/);
 });
 
 test("Check that display of heart icon message in the header", async ({
