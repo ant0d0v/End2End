@@ -103,6 +103,15 @@ module.exports = defineConfig({
       name: "api",
       testMatch: /.*\.api\.js/,
     },
+    {
+      name: "mobile",
+      testMatch: /.*\.mobile\.js/,
+      use: {
+        ...devices["Pixel 7"],
+        headless: false,
+        screenshot: "only-on-failure",
+      }
+    },
   ],
   /* Run your local dev server before starting the tests */
   // webServer: {
