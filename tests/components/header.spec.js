@@ -34,7 +34,7 @@ test("Check query counter value when searching for images ", async ({
   await header.clickImageSearchButton();
 
   //Assert
-  await header.headerStaticPages.expectTextCharitySearchCounterToHave("2");
+  await header.headerStaticPages.expectCharitySearchCounterToHave("2");
 });
 
 test("Check query counter value when searching for video ", async ({
@@ -47,7 +47,7 @@ test("Check query counter value when searching for video ", async ({
   await header.clickVideoSearchButton();
 
   //Assert
-  await header.headerStaticPages.expectTextCharitySearchCounterToHave("2");
+  await header.headerStaticPages.expectCharitySearchCounterToHave("2");
 });
 
 test.use({ retries: 3 });
@@ -61,7 +61,7 @@ test("Check query counter value when searching for music", async ({
   await header.clickMusicSearchButton();
 
   //Assert
-  await header.headerStaticPages.expectTextCharitySearchCounterToHave("2");
+  await header.headerStaticPages.expectCharitySearchCounterToHave("2");
 });
 
 test("Check query counter value when searching for news", async ({
@@ -77,7 +77,7 @@ test("Check query counter value when searching for news", async ({
   await header.clickNewsSearchButton();
 
   //Assert
-  await header.headerStaticPages.expectTextCharitySearchCounterToHave("3");
+  await header.headerStaticPages.expectCharitySearchCounterToHave("3");
 });
 
 test("Check query counter value when searching for shopping", async ({
@@ -93,27 +93,7 @@ test("Check query counter value when searching for shopping", async ({
   await header.clickShoppingSearchButton();
 
   //Assert
-  await header.headerStaticPages.expectTextCharitySearchCounterToHave("3");
-});
-
-test("Check that email icon navigates to login page if user logged in on the search page ", async ({
-  header,
-  headerStaticPages,
-  context,
-}) => {
-  //Actions
-  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
-  await headerStaticPages.clickEnterSearchField();
-  await header.headerStaticPages.expectTextCharitySearchCounterToHave("1");
-  await header.headerStaticPages.clickBadgeEmail();
-  const currentPage = await header.switchToAnotherWindow(context);
-
-  //Assert
-  await header.expectHaveUrl(
-    currentPage,
-    new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*")
-  );
-  await header.expectHaveTitle(currentPage, /Login - Swisscows Accounts/);
+  await header.headerStaticPages.expectCharitySearchCounterToHave("3");
 });
 
 test.describe("tests don't use cookie  cookie", () => {
@@ -127,7 +107,7 @@ test.describe("tests don't use cookie  cookie", () => {
       //Actions
       await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
       await headerStaticPages.clickEnterSearchField();
-      await header.headerStaticPages.expectTextCharitySearchCounterToHave("1");
+      await header.headerStaticPages.expectCharitySearchCounterToHave("1");
       await header.headerStaticPages.clickLinkInHeader(locatorId);
       const currentPage = await header.switchToAnotherWindow(context);
 
@@ -138,6 +118,23 @@ test.describe("tests don't use cookie  cookie", () => {
   }
 });
 
+test("Check that email icon navigates to login page if user logged in on the search page ", async ({
+  header,
+  headerStaticPages,
+  context,
+}) => {
+  //Actions
+  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
+  await headerStaticPages.clickEnterSearchField();
+  await header.headerStaticPages.expectCharitySearchCounterToHave("1");
+  await header.headerStaticPages.clickBadgeEmail();
+  const currentPage = await header.switchToAnotherWindow(context);
+
+  //Assert
+  await header.expectHaveUrl(currentPage,new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*"));
+  await header.expectHaveTitle(currentPage, /Login - Swisscows Accounts/);
+});
+
 test("Check that display of heart icon message in the header", async ({
   header,
   headerStaticPages,
@@ -145,7 +142,7 @@ test("Check that display of heart icon message in the header", async ({
   //Actions
   await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
-  await header.headerStaticPages.expectTextCharitySearchCounterToHave("1");
+  await header.headerStaticPages.expectCharitySearchCounterToHave("1");
   await header.headerStaticPages.clickSearchCounter();
 
   //Assert

@@ -60,8 +60,8 @@ export class HeaderStaticPages extends BasePage {
 
   // Verify
 
-  expectTextCharitySearchCounterToHave = async (text) => {
-    await this.expectTextOfElement(this.charitySearchCounter, text);
+  expectCharitySearchCounterToHave = async (value) => {
+    await this.expectAttributeToHaveValue(this.searchCounter, "title", value);
   };
   expectPopupCharitySearchCounterToHaveText = async (text) => {
     await this.expectTextOfElement(this.popupCharitySearchCounter, text);

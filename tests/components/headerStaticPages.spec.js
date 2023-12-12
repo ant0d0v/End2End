@@ -14,16 +14,11 @@ test.describe("test don't use cookie ", () => {
     }) => {
       //Actions
       await headerStaticPages.clickLinkInHeader(locatorId);
-      const currentPage = await headerStaticPages.switchToAnotherWindow(
-        context
-      );
+      const currentPage = await headerStaticPages.switchToAnotherWindow(context);
 
       //Assert
       await headerStaticPages.expectHaveUrl(currentPage, expectedLink);
-      await headerStaticPages.expectHaveTitle(
-        currentPage,
-        new RegExp(expectedTitle)
-      );
+      await headerStaticPages.expectHaveTitle(currentPage,new RegExp(expectedTitle));
     });
   }
 });
@@ -31,7 +26,7 @@ test("Check charity query counter value at the Beginning", async ({
   headerStaticPages,
 }) => {
   //Assert
-  await headerStaticPages.expectTextCharitySearchCounterToHave("0");
+  await headerStaticPages.expectCharitySearchCounterToHave("0");
 });
 
 test("Check charity query counter value after refresh page ", async ({
@@ -42,7 +37,7 @@ test("Check charity query counter value after refresh page ", async ({
   await mainPage.reloadPage();
 
   //Assert
-  await headerStaticPages.expectTextCharitySearchCounterToHave("0");
+  await headerStaticPages.expectCharitySearchCounterToHave("0");
 });
 
 test("Check charity query counter value after search and go back to main bage ", async ({
@@ -52,11 +47,11 @@ test("Check charity query counter value after search and go back to main bage ",
   //Actions
   await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
   await headerStaticPages.clickEnterSearchField();
-  await headerStaticPages.expectTextCharitySearchCounterToHave("1");
+  await headerStaticPages.expectCharitySearchCounterToHave("1");
   await webPage.goBack();
 
   //Assert
-  await headerStaticPages.expectTextCharitySearchCounterToHave("1");
+  await headerStaticPages.expectCharitySearchCounterToHave("1");
 });
 test("Check that display of heart icon message in the header static pages", async ({
   headerStaticPages,
