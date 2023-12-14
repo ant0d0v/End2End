@@ -2,9 +2,9 @@
 {
     "WebSearchRequestRateLimit": {
             "webEndpoint": "web/search?",
-            "query": "test",
-            "XRequestNonce" : "Ti3Tc.wVindZi7lSNMerYLf4~TZ9Rb~C",
-            "XRequestSignature": "iTkZEqk72sXAD98dEBU-M66krDQTybXDJ_-PtkZIDOs"
+            "query": "good",
+            "XRequestNonce" : "ZGA0kQ.x8T7dyRCVxWRS-8cALOnSJ3ea",
+            "XRequestSignature": "ps4ok5GzOodQJmo2KLzdFTsvtYD9hLE3j8JKH4dNqBM"
         },
     "ImageSearchRequestRateLimit": {
             "imageEndpoint": "image/search?",

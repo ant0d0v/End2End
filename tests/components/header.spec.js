@@ -50,19 +50,19 @@ test("Check query counter value when searching for video ", async ({
   await header.headerStaticPages.expectCharitySearchCounterToHave("2");
 });
 
-test.use({ retries: 3 });
 test("Check query counter value when searching for music", async ({
-  headerStaticPages,
-  header,
-}) => {
-  //Actions
-  await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
-  await headerStaticPages.clickEnterSearchField();
-  await header.clickMusicSearchButton();
+    headerStaticPages,
+    header,
+  }) => {
+    //Actions
+    await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
+    await headerStaticPages.clickEnterSearchField();
+    await header.clickMusicSearchButton();
 
-  //Assert
-  await header.headerStaticPages.expectCharitySearchCounterToHave("2");
-});
+    //Assert
+    await header.headerStaticPages.expectCharitySearchCounterToHave("2");
+  });
+
 
 test("Check query counter value when searching for news", async ({
   header,
@@ -96,25 +96,24 @@ test("Check query counter value when searching for shopping", async ({
   await header.headerStaticPages.expectCharitySearchCounterToHave("3");
 });
 
-test.describe("test use cookie", () => {
-  test.use({ storageState: "./data/auth/user.json" });
-  test("Check that email icon navigates to account/login page if user logged ", async ({
+  test("Check that email icon navigates to account/login page if user logged ", async({
     header,
-    headerStaticPages,
-    context,
+    headerStaticPages, 
   }) => {
     //Actions
     await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
     await headerStaticPages.clickEnterSearchField();
     await header.headerStaticPages.expectCharitySearchCounterToHave("1");
     await header.headerStaticPages.clickBadgeEmail();
-    const currentPage = await header.switchToAnotherWindow(context);
+    const currentPage = await header.switchToAnotherWindow();
 
     //Assert
-    await header.expectHaveUrl(currentPage,new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*"));
+    await header.expectHaveUrl(
+      currentPage,
+      new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*")
+    );
     await header.expectHaveTitle(currentPage, /Login - Swisscows Accounts/);
   });
-});
 
 test.describe("tests don't use cookie", () => {
   test.use({ storageState: { cookies: [], origins: [] } });
@@ -122,14 +121,13 @@ test.describe("tests don't use cookie", () => {
     test(`${testID} Check that header badge ${locatorId} link navigate to corresponding pages`, async ({
       header,
       headerStaticPages,
-      context,
     }) => {
       //Actions
       await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
       await headerStaticPages.clickEnterSearchField();
       await header.headerStaticPages.expectCharitySearchCounterToHave("1");
       await header.headerStaticPages.clickLinkInHeader(locatorId);
-      const currentPage = await header.switchToAnotherWindow(context);
+      const currentPage = await header.switchToAnotherWindow();
 
       //Assert
       await header.expectHaveUrl(currentPage, expectedLink);

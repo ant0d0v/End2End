@@ -62,10 +62,7 @@ test("Check that the link in the fourth question leads to the expected URL.", as
   const DefaultSearchPage = await mainPage.switchToAnotherWindow(context);
 
   //Assert
-  await defaultSearchPage.expectHaveUrl(
-    DefaultSearchPage,
-    main.url.defaultSearchPage
-  );
+  await defaultSearchPage.expectHaveUrl(DefaultSearchPage,main.url.defaultSearchPage);
   await defaultSearchPage.expectH1Text(DefaultSearchPage, expectedH1text);
 });
 
@@ -88,10 +85,7 @@ test('Check that popup "google install" redirect to the corresponding page', asy
   const newPage = await mainPage.switchToAnotherWindow(context);
 
   //Assert
-  await mainPage.expectHaveUrl(
-    newPage,
-    new RegExp(main.url.extensionGoogleInstall)
-  );
+  await mainPage.expectHaveUrl(newPage,new RegExp(main.url.extensionGoogleInstall));
   await mainPage.expectHaveTitle(newPage, /Swisscows/);
 });
 
@@ -105,10 +99,7 @@ test('Check that the "Install Google Block" button redirect to coresponding URL.
   const externalPage = await mainPage.switchToAnotherWindow(context);
 
   //Assert
-  await mainPage.expectHaveUrl(
-    externalPage,
-    new RegExp(main.url.extensionGoogleInstall)
-  );
+  await mainPage.expectHaveUrl(externalPage, new RegExp(main.url.extensionGoogleInstall));
   await mainPage.expectHaveTitle(externalPage, /Swisscows/);
 });
 
@@ -138,10 +129,7 @@ test("Check that buttons have hover over the services block on main page", async
   await mainPage.scrollToServicesBlock();
 
   //Assert
-  await mainPage.expectColorsLinksWhenHovering(
-    mainPage.buttonOfServiceBlock,
-    expectedColorWhenHovering
-  );
+  await mainPage.expectColorsLinksWhenHovering(mainPage.buttonOfServiceBlock, expectedColorWhenHovering);
 });
 
 test("Check design of the main page ", async ({ mainPage }) => {
@@ -175,12 +163,7 @@ test("Check that images are dysplaed of the service block", async ({
   await mainPage.expectImagesOfSrviceBlockAreDisplayed();
 });
 
-for (const {
-  testID,
-  expectedLink,
-  locatorId,
-  expectedTitle,
-} of main.servicesBlockLinks) {
+for (const { testID, expectedLink, locatorId,expectedTitle,} of main.servicesBlockLinks) {
   test(`${testID} Check that the ${locatorId} link navigate to the corresponding page.`, async ({
     mainPage,
   }) => {
@@ -194,12 +177,7 @@ for (const {
     await mainPage.expectHaveTitle(newPage, expectedTitle);
   });
 }
-for (const {
-  testID,
-  expectedLink,
-  locatorId,
-  expectedTitle,
-} of main.languagesLinks) {
+for (const { testID, expectedLink, locatorId, expectedTitle,} of main.languagesLinks) {
   test(`${testID} Check navigation to corresponding pages for  ${locatorId} localization`, async ({
     headerStaticPages,
     hamburgerMenu,

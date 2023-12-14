@@ -1,6 +1,7 @@
 import { test as setup, expect } from '@playwright/test';
 const authFile = "./data/auth/user.json";
-setup('Login to swisscows site', async ({ page }) => {
+
+setup('Login to site internal user', async ({ page }) => {
   await page.goto(process.env.WEB_URL);
   await page.locator("header button.hamburger-menu").click();
   await page.getByRole("button", { name: "Login" }).click();
