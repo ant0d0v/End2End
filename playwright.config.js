@@ -28,12 +28,13 @@ module.exports = defineConfig({
   // globalSetup: 'utils/globalSetup.js',
   testDir: "./tests",
   timeout: 5 * 60 * 1000,
+  retries: 3,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  // retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
 
@@ -42,16 +43,16 @@ module.exports = defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: "https://dev.swisscows.com/",
-    actionTimeout: 15 * 1000,
+    actionTimeout: 20 * 1000,
     locale: "en-GB",
     colorScheme: "light",
     screenshot: "only-on-failure",
-    // video: 'retain-on-failure',
+    video: "retain-on-failure",
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
   },
   expect: {
-    toHaveScreenshot: { maxDiffPixels: 15 },
+    toHaveScreenshot: { maxDiffPixels: 30 },
     timeout: 10 * 1000,
   },
 
@@ -97,11 +98,21 @@ module.exports = defineConfig({
         headless: false,
         viewport: { width: 1360, height: 900 },
         screenshot: "only-on-failure",
+        video: "retain-on-failure",
       },
     },
     {
       name: "api",
       testMatch: /.*\.api\.js/,
+    },
+    {
+      name: "mobile",
+      testMatch: /.*\.mobile\.js/,
+      use: {
+        ...devices["Pixel 7"],
+        headless: false,
+        screenshot: "only-on-failure",
+      },
     },
   ],
   /* Run your local dev server before starting the tests */

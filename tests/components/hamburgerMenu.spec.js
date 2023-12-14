@@ -150,12 +150,8 @@ test("Check  availability and options of region dropdown menu in hamburger menu"
 
   //Assert
   await hamburgerMenu.expectListSize(
-    hamburgerMenu.textsOfRegionDropdownInHamburgerMenu,
-    48
-  );
-  await hamburgerMenu.expectTextsOfRegionInHamburgerMenu(
-    expectedTextsOfRegionDropdown
-  );
+    hamburgerMenu.textsOfRegionDropdownInHamburgerMenu,48);
+  await hamburgerMenu.expectTextsOfRegionInHamburgerMenu(expectedTextsOfRegionDropdown);
 });
 test("Check theme change to dark theme", async ({
   headerStaticPages,
@@ -195,19 +191,11 @@ test("Check default theme on first opening the site", async ({
   await hamburgerMenu.clickThemeDropdownInHamburgerMenu();
 
   //Assert
-  await hamburgerMenu.expectAttributeClassOfElement(
-    hamburgerMenu.defaultThemeInHemburgerMenu,
-    "active"
-  );
+  await hamburgerMenu.expectAttributeClassOfElement(hamburgerMenu.defaultThemeInHemburgerMenu,"active");
   await hamburgerMenu.expectBackgroundColorOfPage(expectedLightBackground);
 });
 
-for (const {
-  testID,
-  expectedLink,
-  locatorId,
-  expectedTitle,
-} of dateTest.regionLinksOfMainPage) {
+for (const {testID,expectedLink,locatorId,expectedTitle,} of dateTest.regionLinksOfMainPage) {
   test(`${testID} Check navigation to corresponding pages for ${locatorId} region`, async ({
     headerStaticPages,
     hamburgerMenu,
@@ -224,12 +212,7 @@ for (const {
     await mainPage.expectHaveTitle(page, expectedTitle);
   });
 }
-for (const {
-  testID,
-  expectedLink,
-  locatorId,
-  expectedTitle,
-} of dateTest.staticPagesLinks) {
+for (const {testID,expectedLink,locatorId,expectedTitle,} of dateTest.staticPagesLinks) {
   test(`${testID}  ${locatorId} content page links navigates to the corresponding page.`, async ({
     headerStaticPages,
     hamburgerMenu,

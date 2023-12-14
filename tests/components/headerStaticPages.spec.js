@@ -5,16 +5,16 @@ const data = JSON.parse(
 const testData = JSON.parse(
   JSON.stringify(require("../../data/header/testData.json"))
 );
+
 test.describe("test don't use cookie ", () => {
   test.use({ storageState: { cookies: [], origins: [] } });
   for (const { testID,expectedLink,locatorId,expectedTitle,} of data.headerLinks) {
     test(`${testID} Check that header static badge ${locatorId} link navigate to corresponding pages`, async ({
       headerStaticPages,
-      context,
     }) => {
       //Actions
       await headerStaticPages.clickLinkInHeader(locatorId);
-      const currentPage = await headerStaticPages.switchToAnotherWindow(context);
+      const currentPage = await headerStaticPages.switchToAnotherWindow();
 
       //Assert
       await headerStaticPages.expectHaveUrl(currentPage, expectedLink);
@@ -69,12 +69,11 @@ test.describe("test use cookie", () => {
   test.use({ storageState: "./data/auth/user.json" });
   test("Check that email icon navigates to account/login page if user logged ", async ({
     header,
-    headerStaticPages,
-    context,
+    headerStaticPages
   }) => {
     //Actions
     await headerStaticPages.clickBadgeEmail();
-    const currentPage = await header.switchToAnotherWindow(context);
+    const currentPage = await header.switchToAnotherWindow();
 
     //Assert
     await headerStaticPages.expectHaveUrl(currentPage,new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*"));

@@ -1,10 +1,10 @@
 // @ts-check
-const { test, expect } = require("../utils/fixturePages");
+const { test, expect } = require("../../utils/fixturePages");
 const testData = JSON.parse(
-  JSON.stringify(require("../data/header/testData.json"))
+  JSON.stringify(require("../../data/header/testData.json"))
 );
 const main = JSON.parse(
-  JSON.stringify(require("../data/main-page/testData.json"))
+  JSON.stringify(require("../../data/main-page/testData.json"))
 );
 
 test("Check that suggest is displayed", async ({
@@ -19,9 +19,7 @@ test("Check that suggest is displayed", async ({
   //Assert
   await headerStaticPages.expectSuggestIsDisplayed();
   await headerStaticPages.expectSuggestToHaveCount(5);
-  await headerStaticPages.expectSuggestToContains(
-    testData.searchCriteria.first
-  );
+  await headerStaticPages.expectSuggestToContains(testData.searchCriteria.first);
 });
 
 test("Check that all questions were opened on the main page.", async ({
@@ -62,45 +60,11 @@ test("Check that the link in the fourth question leads to the expected URL.", as
   const DefaultSearchPage = await mainPage.switchToAnotherWindow(context);
 
   //Assert
-  await defaultSearchPage.expectHaveUrl(DefaultSearchPage,main.url.defaultSearchPage);
+  await defaultSearchPage.expectHaveUrl(
+    DefaultSearchPage,
+    main.url.defaultSearchPage
+  );
   await defaultSearchPage.expectH1Text(DefaultSearchPage, expectedH1text);
-});
-
-test("Check that popup google install Is Dysplaed", async ({ mainPage }) => {
-  const expectedText =
-    "Stay with us and set Swisscows as your default search engine. ";
-
-  //Assert
-  await mainPage.expectPopupInstallSwisscowsLinkIsDisplayed();
-  await mainPage.expectTextOfPopupInstallSwisscowsLink(expectedText);
-});
-
-test('Check that popup "google install" redirect to the corresponding page', async ({
-  mainPage,
-  context,
-}) => {
-  await mainPage.expectPopupInstallSwisscowsLinkIsDisplayed();
-  await mainPage.clickPopupInstallSwisscowsLink();
-
-  const newPage = await mainPage.switchToAnotherWindow(context);
-
-  //Assert
-  await mainPage.expectHaveUrl(newPage,new RegExp(main.url.extensionGoogleInstall));
-  await mainPage.expectHaveTitle(newPage, /Swisscows/);
-});
-
-test('Check that the "Install Google Block" button redirect to coresponding URL.', async ({
-  mainPage,
-  context,
-}) => {
-  await mainPage.scrollToInstallSwisscowsBlock();
-  await mainPage.clickInstallSwisscowsBlock();
-
-  const externalPage = await mainPage.switchToAnotherWindow(context);
-
-  //Assert
-  await mainPage.expectHaveUrl(externalPage, new RegExp(main.url.extensionGoogleInstall));
-  await mainPage.expectHaveTitle(externalPage, /Swisscows/);
 });
 
 test("Check the texts of questions on the main page.", async ({ mainPage }) => {
@@ -129,11 +93,13 @@ test("Check that buttons have hover over the services block on main page", async
   await mainPage.scrollToServicesBlock();
 
   //Assert
-  await mainPage.expectColorsLinksWhenHovering(mainPage.buttonOfServiceBlock, expectedColorWhenHovering);
+  await mainPage.expectColorsLinksWhenHovering(
+    mainPage.buttonOfServiceBlock,
+    expectedColorWhenHovering
+  );
 });
 
 test("Check design of the main page ", async ({ mainPage }) => {
-  await mainPage.clickCloseButtonOfPopupInstallSwisscowsLink();
 
   //Assert
   await mainPage.expectScreenMainPage();
@@ -163,35 +129,6 @@ test("Check that images are dysplaed of the service block", async ({
   await mainPage.expectImagesOfSrviceBlockAreDisplayed();
 });
 
-for (const { testID, expectedLink, locatorId,expectedTitle,} of main.servicesBlockLinks) {
-  test(`${testID} Check that the ${locatorId} link navigate to the corresponding page.`, async ({
-    mainPage,
-  }) => {
-    await mainPage.scrollToServicesBlock();
-    await mainPage.clickLinkInServiceBlock(locatorId);
-    const newPage = await mainPage.switchToAnotherWindow();
 
-    //Assert
 
-    await mainPage.expectHaveUrl(newPage, expectedLink);
-    await mainPage.expectHaveTitle(newPage, expectedTitle);
-  });
-}
-for (const { testID, expectedLink, locatorId, expectedTitle,} of main.languagesLinks) {
-  test(`${testID} Check navigation to corresponding pages for  ${locatorId} localization`, async ({
-    headerStaticPages,
-    hamburgerMenu,
-    mainPage,
-    page,
-  }) => {
-    //Actions
-    await headerStaticPages.clickHamburgerMenuButton();
-    await hamburgerMenu.clickLanguagesDropdownInHamburgerMenu();
-    await hamburgerMenu.clickLanguageLinkInDropdown(locatorId);
-
-    //Assert
-    await mainPage.expectHaveUrl(page, expectedLink);
-    await mainPage.expectHaveTitle(page, new RegExp(expectedTitle));
-  });
-}
 

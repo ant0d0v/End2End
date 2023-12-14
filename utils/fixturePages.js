@@ -9,10 +9,7 @@ const { MusicPage } = require("../pages/search/MusicPage");
 const { VideoPage } = require("../pages/search/VideoPage");
 const { WebPage } = require("../pages/search/WebPage");
 const { HamburgerMenu } = require("../components/HamburgerMenu");
-const { BotsProtection } = require("../api/BotsProtection");
-const {
-  DefaultSearchPage,
-} = require("../pages/static-pages/DefaultSearchPage");
+const { DefaultSearchPage } = require("../pages/static-pages/DefaultSearchPage");
 
 exports.test = base.test.extend({
   mainPage: async ({ page }, use) => {
@@ -44,9 +41,6 @@ exports.test = base.test.extend({
   },
   hamburgerMenu: async ({ page }, use) => {
     await use(new HamburgerMenu(page));
-  },
-  botsProtection: async ({ request }, use) => {
-    await use(new BotsProtection(request));
   },
   preloader: async ({ page }, use) => {
     await use(new Preloader(page));
