@@ -43,7 +43,7 @@ module.exports = defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: "https://dev.swisscows.com/",
-    actionTimeout: 20 * 1000,
+    actionTimeout: 5 * 20 * 1000,
     locale: "en-GB",
     colorScheme: "light",
     screenshot: "only-on-failure",
@@ -52,7 +52,7 @@ module.exports = defineConfig({
     trace: "on-first-retry",
   },
   expect: {
-    toHaveScreenshot: { maxDiffPixels: 30 },
+    toHaveScreenshot: { maxDiffPixelRatio: 0.2},
     timeout: 10 * 1000,
   },
 

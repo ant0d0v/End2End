@@ -26,7 +26,7 @@ jobs:
         displayName: "Install Playwright Browsers"
  
       - script: |
-          QASE_REPORT=1 QASE_RUN_NAME=UI npx playwright test --project chromium firefox edge  --headed ; QASE_REPORT=1 QASE_RUN_NAME=API npx playwright test api 
+          QASE_REPORT=1 QASE_RUN_NAME=UI npx playwright test --project chromium firefox edge mobile  --headed ; QASE_REPORT=1 QASE_RUN_NAME=API npx playwright test api 
         displayName: "Run Playwright tests"
        
       - publish: $(Build.SourcesDirectory)/playwright-report
