@@ -5,29 +5,43 @@ export class BasePage {
     this.page = page;
     this.h1Text = (page) => page.locator("//h1");
   }
+  async errorHandling(error,page ) {
+    const exceptionMessage = new Error(`
+     *************************************
+     \x1b[31m*TEST FAILED*\x1b[0m
+     Test execution fails on Page with URL: \x1b[31m${page.url()}\x1b[0m,
+     ERROR TYPE: \x1b[31m${error.name}\x1b[0m,
+     MESSAGE: \x1b[31m${error.message}\x1b[0m,
+     STACK TRACE: \x1b[31m${error.stack}\x1b[0m,
+     *************************************`);
+    throw exceptionMessage;
+  }
 
   //Actions
 
   async clickElement(element, nameElement) {
     await test.step(`Click on the ${nameElement}`, async () => {
-      await element.click();
+        await element.click()
+      
     });
   }
   async clickEnter(element, nameElement) {
     await test.step(`Press enter on the ${nameElement}`, async () => {
-      await element.press("Enter");
+      await element
+        .press("Enter")
     });
   }
   async clickAllElementsInList(elements, nameElements) {
     await test.step(`Click on the all ${nameElements}`, async () => {
-      for (const element of await elements.all()) {
-        await element.click();
-      }
-    });
+        for (const element of await elements.all()) {
+          await element.click();
+        }
+      })
+      .catch(async (e) => await this.errorHandling(e, this.page));
   }
   async getTextsOfElements(elements, nameElements) {
     return await test.step(`Get texts the all ${nameElements} `, async () => {
-      return await elements.allTextContents();
+      return await elements.allTextContents()
     });
   }
   async switchToAnotherWindow() {
@@ -108,7 +122,11 @@ export class BasePage {
   }
   async expectArraySize(elements, number) {
     await test.step('Expect the elements in the array to "eqaul" a count', async () => {
-      await expect(elements.length).toEqual(number);
+      try {
+        expect(elements.length).toEqual(number);
+      } catch (error) {
+        await this.errorHandling(error, this.page);
+      }
     });
   }
   async expectElementToBeEditable(element) {
@@ -188,3 +206,4 @@ export class BasePage {
     });
   }
 }
+
