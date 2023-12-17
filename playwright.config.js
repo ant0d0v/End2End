@@ -43,7 +43,7 @@ module.exports = defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: "https://dev.swisscows.com/",
-    actionTimeout: 5 * 20 * 1000,
+    actionTimeout: 25 * 1000,
     locale: "en-GB",
     colorScheme: "light",
     screenshot: "only-on-failure",
