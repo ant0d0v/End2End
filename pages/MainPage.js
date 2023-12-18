@@ -6,21 +6,38 @@ export class MainPage extends BasePage {
   constructor(page) {
     super(page);
     // Locators
-    this.logoSwisscows = this.page.getByRole("img", {name: "Swisscows",exact: true,});
-    this.blockQuestionsAndAnswers = this.page.getByText("Questions and AnswersWhat");
-    this.allQuestions = this.page.locator("h3.questions");
+    this.logoSwisscows = this.page.getByRole("img", {
+      name: "Swisscows",
+      exact: true,
+    });
+    this.blockQuestionsAndAnswers = this.page.getByText(
+      "Questions and AnswersWhat"
+    );
+    this.allQuestions = this.page.locator("h3.question");
     this.allAttributeOfQuestions = this.page.locator("div.faq-wrap div");
-    this.fourQuestion = this.page.locator("h3").filter({ hasText: "How can I switch from another search engine to the anonymous search engine Swisscows?" })
-    this.linkInTheFourQuestion = this.page.getByRole("link", {name: "instructions",});
-    this.popupInstallSwisscowsLink = this.page.getByRole("link", {name: "Stay with us and set",});
-    this.installSwisscowsBlock = this.page.getByRole("link", { name: "Install Swisscows The",});
+    this.fourQuestion = this.page.getByRole("heading", {
+      name: "How can I switch from another",
+    });
+    this.linkInTheFourQuestion = this.page.getByRole("link", {
+      name: "instructions",
+    });
+    this.popupInstallSwisscowsLink = this.page.getByRole("link", {
+      name: "Stay with us and set",
+    });
+    this.installSwisscowsBlock = this.page.getByRole("link", {
+      name: "Install Swisscows The",
+    });
     this.answersToQuestions = this.page.locator("p.answer");
-    this.closeButtonOfPopupInstallSwisscowsLink = this.page.locator('div').filter({ hasText: 'Install Swisscows' }).getByRole('button')
-    this.widgetMainPage = this.page.locator("widget");
-    this.imagesOfServiceBlock = this.page.locator("services-block").and(this.page.getByRole("img"));
+    this.closeButtonOfPopupInstallSwisscowsLink = this.page
+      .locator("div")
+      .filter({ hasText: "Install Swisscows" })
+      .getByRole("button");
+    this.widgetMainPage = this.page.locator("//div[@class ='bnnr-widget']");
     this.serviceBlock = this.page.locator("div.services-blocks");
-    this.linksOfServiceBlock = (name) => this.page.getByRole("link", { name: name });
+    this.imagesOfServiceBlock = this.page.locator("div.services-blocks img");
     this.buttonOfServiceBlock = this.page.locator("a.services-block-link");
+    this.linksOfServiceBlock = (name) =>
+      this.page.getByRole("link", { name: name });
   }
 
   //Actions
@@ -30,36 +47,12 @@ export class MainPage extends BasePage {
     return this;
   };
 
-  clickLinkInServiceBlock = async (id) => {
-    await this.clickElement(
-      this.linksOfServiceBlock(id),
-      `link of service block `
+  async clickLinkInServiceBlockAndNavigateToNewPage(id) {
+    const newPage = await this.clickElementAndNavigateToNewPage(
+      this.linksOfServiceBlock(id)
     );
-  };
-
-  getTextsOfAllQuestions = async () => {
-    return this.getTextsOfElements(this.answersToQuestions, `answers`);
-  };
-
-  scrollToBlockQuestionsAndAnswers = async () => {
-    await this.scrollByVisibleElement(
-      this.blockQuestionsAndAnswers,
-      `accordion menu`
-    );
-    return this;
-  };
-  scrollToInstallSwisscowsBlock = async () => {
-    await this.scrollByVisibleElement(
-      this.installSwisscowsBlock,
-      `block install swisscows Install`
-    );
-    return this;
-  };
-  scrollToServicesBlock = async () => {
-    await this.scrollByVisibleElement(this.serviceBlock, `services block`);
-    return this;
-  };
-
+    return newPage;
+  }
   clickLogoSwisscows = async () => {
     await this.clickElement(
       this.logoSwisscows,
@@ -80,6 +73,7 @@ export class MainPage extends BasePage {
       this.linkInTheFourQuestion,
       `link of four question in accordion menu`
     );
+    return this;
   };
   clickPopupInstallSwisscowsLink = async () => {
     await this.clickElement(
@@ -88,8 +82,7 @@ export class MainPage extends BasePage {
     );
   };
   clickInstallSwisscowsBlock = async () => {
-    await this.clickElement(
-      this.installSwisscowsBlock,
+    await this.clickElement(this.installSwisscowsBlock,
       `container install swisscows block on the main page`
     );
   };
@@ -132,5 +125,8 @@ export class MainPage extends BasePage {
 
   expectImagesOfSrviceBlockAreDisplayed = async () => {
     await this.expectAreElementsInListDisplayed(this.imagesOfServiceBlock);
+  };
+  expecListSizeAnswerToQuestions = async (number) => {
+    await this.expectArraySize(this.answersToQuestions, number);
   };
 }

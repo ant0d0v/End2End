@@ -19,15 +19,13 @@ test("Check that suggest is displayed", async ({
   //Assert
   await headerStaticPages.expectSuggestIsDisplayed();
   await headerStaticPages.expectSuggestToHaveCount(5);
-  await headerStaticPages.expectSuggestToContains(
-    testData.searchCriteria.first
-  );
+  await headerStaticPages.expectSuggestToContains(testData.searchCriteria.first);
 });
 
 test("Check that all questions were opened on the main page.", async ({
   mainPage,
 }) => {
-  await mainPage.scrollToBlockQuestionsAndAnswers();
+  
   await mainPage.clickAllQuestions();
 
   //Assert
@@ -37,14 +35,12 @@ test("Check that all questions were opened on the main page.", async ({
 test("Check that a question and answer can be opened and closed on the main page.", async ({
   mainPage,
 }) => {
-  await mainPage.scrollToBlockQuestionsAndAnswers();
+  
   await mainPage.clickAllQuestions();
-
   //Assert
   await mainPage.expectQuestionsAreOpened();
 
   await mainPage.clickAllQuestions();
-
   //Assert
   await mainPage.expectQuestionsAreClosed();
 });
@@ -55,10 +51,10 @@ test("Check that the link in the fourth question leads to the expected URL.", as
 }) => {
   const expectedH1text = "How to use Swisscows as default search";
 
-  await mainPage.scrollToBlockQuestionsAndAnswers();
   await mainPage.clickFourQuestion();
-  await mainPage.clickLinkInTheFourQuestion();
-  const DefaultSearchPage = await mainPage.switchToAnotherWindow();
+  const DefaultSearchPage = await mainPage.clickElementAndNavigateToNewPage(
+    mainPage.linkInTheFourQuestion
+  );
 
   //Assert
   await defaultSearchPage.expectHaveUrl(DefaultSearchPage, main.url.defaultSearchPage);
@@ -75,13 +71,12 @@ test("Check that popup google install Is Dysplaed", async ({ mainPage }) => {
 });
 
 test('Check that popup "google install" redirect to the corresponding page', async ({
-  mainPage,
-  context,
+  mainPage
 }) => {
   await mainPage.expectPopupInstallSwisscowsLinkIsDisplayed();
-  await mainPage.clickPopupInstallSwisscowsLink();
-
-  const newPage = await mainPage.switchToAnotherWindow(context);
+  const newPage = await mainPage.clickElementAndNavigateToNewPage(
+    mainPage.popupInstallSwisscowsLink
+  );
 
   //Assert
   await mainPage.expectHaveUrl(newPage,new RegExp(main.url.extensionGoogleInstall));
@@ -90,12 +85,11 @@ test('Check that popup "google install" redirect to the corresponding page', asy
 
 test('Check that the "Install Google Block" button redirect to coresponding URL.', async ({
   mainPage,
-  context,
 }) => {
-  await mainPage.scrollToInstallSwisscowsBlock();
   await mainPage.clickInstallSwisscowsBlock();
-
-  const externalPage = await mainPage.switchToAnotherWindow(context);
+  const externalPage = await mainPage.clickElementAndNavigateToNewPage(
+    mainPage.installSwisscowsBlock
+  );
 
   //Assert
   await mainPage.expectHaveUrl(externalPage, new RegExp(main.url.extensionGoogleInstall));
@@ -112,20 +106,15 @@ test("Check the texts of questions on the main page.", async ({ mainPage }) => {
     "Our vision is that every user can be online without fear of surveillance, annoying advertising and unwanted data storage. We have been working towards this goal for over 20 years. Fortunately, data security has now become a relevant topic and many people have understood what all happens to their data completely without their knowledge.We don't want to share our users' data, we want to value it. That's why we developed Swisscows, the anonymous search engine, and other products: • TeleGuard - our data secure messenger (WhatsApp alternative) • Swisscows - works like a firewall and also helps to visit websites anonymously • GetDigest - an AI-based program that helps summarize web content and text documents and quickly delivers the relevant information.Our growing team continues to develop and research innovations that protect users and their privacy on the World Wide Web.",
   ];
 
-  await mainPage.scrollToBlockQuestionsAndAnswers();
-  await mainPage.clickAllQuestions();
-  const actualAnswers = await mainPage.getTextsOfAllQuestions();
-
   //Assert
-  await mainPage.expectArraySize(actualAnswers, 6);
-  await mainPage.expectTextsToEqual(actualAnswers, expectedAnswers);
+  await mainPage.expecListSizeAnswerToQuestions(6);
+  await mainPage.expectTextsToEqual(mainPage.answersToQuestions, expectedAnswers);
 });
 
 test("Check that buttons have hover over the services block on main page", async ({
   mainPage,
 }) => {
   const expectedColorWhenHovering = "rgb(223, 93, 93)";
-  await mainPage.scrollToServicesBlock();
 
   //Assert
   await mainPage.expectColorsLinksWhenHovering(mainPage.buttonOfServiceBlock, expectedColorWhenHovering);
@@ -156,8 +145,7 @@ test("Check design dark theme of the main page ", async ({
 test("Check that images are dysplaed of the service block", async ({
   mainPage,
 }) => {
-  await mainPage.scrollToServicesBlock();
-
+ 
   //Assert
   await mainPage.expectImagesOfSrviceBlockAreDisplayed();
 });
@@ -166,12 +154,9 @@ for (const { testID, expectedLink, locatorId,expectedTitle,} of main.servicesBlo
   test(`${testID} Check that the ${locatorId} link navigate to the corresponding page.`, async ({
     mainPage,
   }) => {
-    await mainPage.scrollToServicesBlock();
-    await mainPage.clickLinkInServiceBlock(locatorId);
-    const newPage = await mainPage.switchToAnotherWindow();
+    const newPage = await mainPage.clickLinkInServiceBlockAndNavigateToNewPage(locatorId);
 
     //Assert
-
     await mainPage.expectHaveUrl(newPage, expectedLink);
     await mainPage.expectHaveTitle(newPage, expectedTitle);
   });

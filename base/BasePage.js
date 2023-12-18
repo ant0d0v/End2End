@@ -5,7 +5,7 @@ export class BasePage {
     this.page = page;
     this.h1Text = (page) => page.locator("//h1");
   }
-  async errorHandling(error,page ) {
+  async errorHandling(error, page) {
     const exceptionMessage = new Error(`
      *************************************
      \x1b[31m*TEST FAILED*\x1b[0m
@@ -21,74 +21,72 @@ export class BasePage {
 
   async clickElement(element, nameElement) {
     await test.step(`Click on the ${nameElement}`, async () => {
-        await element.click()
-      
-    });
+        await element.click();
+      }).catch(async (e) => await this.errorHandling(e, this.page));
   }
   async clickEnter(element, nameElement) {
     await test.step(`Press enter on the ${nameElement}`, async () => {
-      await element
-        .press("Enter")
-    });
+        await element.press("Enter");
+      }).catch(async (e) => await this.errorHandling(e, this.page));
   }
   async clickAllElementsInList(elements, nameElements) {
     await test.step(`Click on the all ${nameElements}`, async () => {
         for (const element of await elements.all()) {
           await element.click();
         }
-      })
-      .catch(async (e) => await this.errorHandling(e, this.page));
+      }).catch(async (e) => await this.errorHandling(e, this.page));
   }
   async getTextsOfElements(elements, nameElements) {
     return await test.step(`Get texts the all ${nameElements} `, async () => {
-      return await elements.allTextContents()
-    });
+        return await elements.allTextContents();
+      }).catch(async (e) => await this.errorHandling(e, this.page));
   }
-  async switchToAnotherWindow() {
+  async clickElementAndNavigateToNewPage(element) {
     return test.step("Switch to another tab and wait for page to be loaded", async () => {
       const [newPage] = await Promise.all([
         this.page.context().waitForEvent("page"),
+        element.click(),
       ]);
       await newPage.waitForLoadState("domcontentloaded");
       return newPage;
-    });
+    }).catch(async (e) => await this.errorHandling(e, this.page));
   }
 
   async scrollByVisibleElement(element, nameElement) {
     await test.step(`Scroll to by visible ${nameElement} on the page`, async () => {
       await element.scrollIntoViewIfNeeded();
-    });
+    }).catch(async (e) => await this.errorHandling(e, this.page));
   }
   async waitElementToBeVisible(element, nameElement) {
     await test.step(`Wait ${nameElement} to be visible`, async () => {
       await element.waitFor();
-    });
+    }).catch(async (e) => await this.errorHandling(e, this.page));
   }
   async reloadPage() {
     await test.step("Refresh current page", async () => {
       await this.page.reload("domcontentloaded");
-    });
+    }).catch(async (e) => await this.errorHandling(e, this.page));
   }
   async input(element, text, nameElement) {
     await test.step(`Input text in to the ${nameElement}`, async () => {
       await element.type(text, { delay: 100 });
-    });
+    }).catch(async (e) => await this.errorHandling(e, this.page));
   }
   async waitForUrlContains(Url) {
     await test.step(`Wait for url ${Url}`, async () => {
       await this.page.waitForURL(Url);
-    });
+    }).catch(async (e) => await this.errorHandling(e, this.page));
   }
 
   async selectOption(element, text) {
     await test.step("Waits until all specified options are present in the <select> element and selects these options. ", async () => {
       await element.selectOption(text);
-    });
+    }).catch(async (e) => await this.errorHandling(e, this.page));
   }
   async goBack() {
     await test.step("Navigate to the previous page in history.", async () => {
       await this.page.goBack();
-    });
+    }).catch(async (e) => await this.errorHandling(e, this.page));
   }
 
   // Verify
@@ -110,6 +108,11 @@ export class BasePage {
       await expect(element).toHaveText(text);
     });
   }
+  async expectTextsToEqual(elements, expectedText) {
+    await test.step('Expect all elements to array "to equal" a string', async () => {
+      await expect(elements).toHaveText(expectedText);
+    });
+  }
   async expectHaveValue(element, value) {
     await test.step('Expect the Element "to have" a value', async () => {
       await expect(element).toHaveValue(value);
@@ -118,16 +121,12 @@ export class BasePage {
   async expectListSize(elements, number) {
     await test.step('Expect the elements in the array to "have" a count', async () => {
       await expect(elements).toHaveCount(number);
-    });
+    }).catch(async (e) => await this.errorHandling(e, this.page));
   }
   async expectArraySize(elements, number) {
     await test.step('Expect the elements in the array to "eqaul" a count', async () => {
-      try {
-        expect(elements.length).toEqual(number);
-      } catch (error) {
-        await this.errorHandling(error, this.page);
-      }
-    });
+       await expect(elements).toHaveCount(number);
+    }).catch(async (e) => await this.errorHandling(e, this.page));
   }
   async expectElementToBeEditable(element) {
     await test.step("Expect the element points to an editable element.", async () => {
@@ -141,7 +140,7 @@ export class BasePage {
         await link.hover();
         await expect(link).toHaveCSS("color", expectedValue);
       }
-    });
+    }).catch(async (e) => await this.errorHandling(e, this.page));
   }
 
   async expectAttributeClassAllElements(elements, value) {
@@ -191,19 +190,14 @@ export class BasePage {
       await this.expectTextOfElement(this.h1Text(newPage), text);
     });
   }
-  async expectTextsToEqual(elements, expectedText) {
-    await test.step('Expect all elements to array "to equal" a string', async () => {
-      await expect(elements).toEqual(expectedText);
-    });
-  }
   async expectScreenOfPage(element1, element2) {
     await test.step('Expect all elements to array "to equal" a string', async () => {
       await expect(this.page).toHaveScreenshot({
         fullPage: true,
         timeout: 4000,
         mask: [await element1, await element2],
-      });
-    });
+      })
+    }).catch(async (e) => await this.errorHandling(e, this.page));
   }
 }
 
