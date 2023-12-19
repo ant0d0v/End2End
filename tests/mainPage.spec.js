@@ -52,12 +52,11 @@ test("Check that the link in the fourth question leads to the expected URL.", as
   const expectedH1text = "How to use Swisscows as default search";
 
   await mainPage.clickFourQuestion();
-  const DefaultSearchPage = await mainPage.clickElementAndNavigateToNewPage(
-    mainPage.linkInTheFourQuestion
-  );
+  const DefaultSearchPage =
+    await mainPage.clickLinkInTheFourQuestionAndNavigateToDefaultSearchPage();
 
   //Assert
-  await defaultSearchPage.expectHaveUrl(DefaultSearchPage, main.url.defaultSearchPage);
+  await defaultSearchPage.expectHaveUrl(DefaultSearchPage , main.url.defaultSearchPage);
   await defaultSearchPage.expectH1Text(DefaultSearchPage, expectedH1text);
 });
 
@@ -73,23 +72,19 @@ test("Check that popup google install Is Dysplaed", async ({ mainPage }) => {
 test('Check that popup "google install" redirect to the corresponding page', async ({
   mainPage
 }) => {
-  await mainPage.expectPopupInstallSwisscowsLinkIsDisplayed();
-  const newPage = await mainPage.clickElementAndNavigateToNewPage(
-    mainPage.popupInstallSwisscowsLink
-  );
+  const externalPage =
+    await mainPage.clickPopupInstallSwisscowsBlockAndNavigateToWebStore();
 
   //Assert
-  await mainPage.expectHaveUrl(newPage,new RegExp(main.url.extensionGoogleInstall));
-  await mainPage.expectHaveTitle(newPage, /Swisscows/);
+  await mainPage.expectHaveUrl(externalPage, new RegExp(main.url.extensionGoogleInstall));
+  await mainPage.expectHaveTitle(externalPage, /Swisscows/);
 });
 
 test('Check that the "Install Google Block" button redirect to coresponding URL.', async ({
   mainPage,
 }) => {
-  await mainPage.clickInstallSwisscowsBlock();
-  const externalPage = await mainPage.clickElementAndNavigateToNewPage(
-    mainPage.installSwisscowsBlock
-  );
+  const externalPage =
+    await mainPage.clickInstallSwisscowsBlockAndNavigateToWebStore();
 
   //Assert
   await mainPage.expectHaveUrl(externalPage, new RegExp(main.url.extensionGoogleInstall));

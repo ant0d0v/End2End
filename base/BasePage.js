@@ -41,8 +41,8 @@ export class BasePage {
         return await elements.allTextContents();
       }).catch(async (e) => await this.errorHandling(e, this.page));
   }
-  async clickElementAndNavigateToNewPage(element) {
-    return test.step("Switch to another tab and wait for page to be loaded", async () => {
+  async clickElementAndNavigateToNewPage(element, nameElement) {
+    return test.step(`Click on the ${nameElement} and navigate to new tab and wait for page to be loaded`, async () => {
       const [newPage] = await Promise.all([
         this.page.context().waitForEvent("page"),
         element.click(),
