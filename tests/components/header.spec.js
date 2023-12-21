@@ -104,15 +104,14 @@ test("Check query counter value when searching for shopping", async ({
     await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
     await headerStaticPages.clickEnterSearchField();
     await header.headerStaticPages.expectCharitySearchCounterToHave("1");
-    await header.headerStaticPages.clickBadgeEmail();
-    const currentPage = await header.switchToAnotherWindow();
+    const newPage = await header.headerStaticPages.clickBadgeEmailAndNavigateToNewPage();
 
     //Assert
     await header.expectHaveUrl(
-      currentPage,
+      newPage,
       new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*")
     );
-    await header.expectHaveTitle(currentPage, /Login - Swisscows Accounts/);
+    await header.expectHaveTitle(newPage, /Login - Swisscows Accounts/);
   });
 
 test.describe("tests don't use cookie", () => {
@@ -126,12 +125,11 @@ test.describe("tests don't use cookie", () => {
       await headerStaticPages.inputSearchCriteria(testData.searchCriteria.first);
       await headerStaticPages.clickEnterSearchField();
       await header.headerStaticPages.expectCharitySearchCounterToHave("1");
-      await header.headerStaticPages.clickLinkInHeader(locatorId);
-      const currentPage = await header.switchToAnotherWindow();
+      const newPage = await header.headerStaticPages.clickLinkInHeaderAndNavigateToNewPage(locatorId);
 
       //Assert
-      await header.expectHaveUrl(currentPage, expectedLink);
-      await header.expectHaveTitle(currentPage, new RegExp(expectedTitle));
+      await header.expectHaveUrl(newPage, expectedLink);
+      await header.expectHaveTitle(newPage, new RegExp(expectedTitle));
     });
   }
 });

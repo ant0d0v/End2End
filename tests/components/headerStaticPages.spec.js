@@ -13,12 +13,11 @@ test.describe("test don't use cookie ", () => {
       headerStaticPages,
     }) => {
       //Actions
-      await headerStaticPages.clickLinkInHeader(locatorId);
-      const currentPage = await headerStaticPages.switchToAnotherWindow();
+      const newPage = await headerStaticPages.clickLinkInHeaderAndNavigateToNewPage(locatorId);
 
       //Assert
-      await headerStaticPages.expectHaveUrl(currentPage, expectedLink);
-      await headerStaticPages.expectHaveTitle(currentPage,new RegExp(expectedTitle));
+      await headerStaticPages.expectHaveUrl(newPage, expectedLink);
+      await headerStaticPages.expectHaveTitle(newPage, new RegExp(expectedTitle));
     });
   }
 });
@@ -68,15 +67,13 @@ test("Check that display of heart icon message in the header static pages", asyn
 test.describe("test use cookie", () => {
   test.use({ storageState: "./data/auth/user.json" });
   test("Check that email icon navigates to account/login page if user logged ", async ({
-    header,
     headerStaticPages
   }) => {
     //Actions
-    await headerStaticPages.clickBadgeEmail();
-    const currentPage = await header.switchToAnotherWindow();
+    const newPage = await headerStaticPages.clickBadgeEmailAndNavigateToNewPage();
 
     //Assert
-    await headerStaticPages.expectHaveUrl(currentPage,new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*"));
-    await headerStaticPages.expectHaveTitle(currentPage, /Login - Swisscows Accounts/);
+    await headerStaticPages.expectHaveUrl(newPage, new RegExp("/accounts.swisscows.com/login\\?ReturnUrl=.*"));
+    await headerStaticPages.expectHaveTitle( newPage, /Login - Swisscows Accounts/);
   });
 });

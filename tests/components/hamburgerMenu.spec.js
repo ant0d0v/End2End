@@ -81,13 +81,8 @@ test("Check availability and options of localization dropdown menu in hamburger 
   await hamburgerMenu.clickLanguagesDropdownInHamburgerMenu();
 
   //Assert
-  await hamburgerMenu.expectListSize(
-    hamburgerMenu.textsOflanguagesDropdownInHamburgerMenu,
-    11
-  );
-  await hamburgerMenu.expectTextsOfLanguagesInHamburgerMenu(
-    expectedTextsOfLanguagesDropdown
-  );
+  await hamburgerMenu.expectListSize(hamburgerMenu.textsOflanguagesDropdownInHamburgerMenu, 11 );
+  await hamburgerMenu.expectTextsOfLanguagesInHamburgerMenu(expectedTextsOfLanguagesDropdown);
 });
 
 test("Check  availability and options of region dropdown menu in hamburger menu", async ({
