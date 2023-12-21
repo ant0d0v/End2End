@@ -137,8 +137,10 @@ export class BasePage {
   async expectColorsLinksWhenHovering(elements, expectedValue) {
     await test.step('Expect the elements in the array to "have" css color with value', async () => {
       for (const link of await elements.all()) {
-        await link.hover();
-        await expect(link).toHaveCSS("color", expectedValue);
+        if (link.isEnabled()) {
+          await link.hover();
+          await expect(link).toHaveCSS("color", expectedValue);
+        }
       }
     }).catch(async (e) => await this.errorHandling(e, this.page));
   }

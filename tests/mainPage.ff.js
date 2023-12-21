@@ -6,19 +6,12 @@ const testData = JSON.parse(
 );
 test('Check that popup "firefox install" redirect to the corresponding page ', async ({
   mainPage,
-  context,
 }) => {
-  await mainPage.expectPopupInstallSwisscowsLinkIsDisplayed();
-  await mainPage.clickPopupInstallSwisscowsLink();
-
-  const newPage = await mainPage.switchToAnotherWindow(context);
+  const externalPage = await mainPage.clickPopupInstallSwisscowsBlockAndNavigateToWebStore();
 
   //Assert
-  await mainPage.expectHaveUrl(
-    newPage,
-    new RegExp(testData.url.extensionFirefoxInstall)
-  );
-  await mainPage.expectHaveTitle(newPage, /Swisscows/);
+  await mainPage.expectHaveUrl( externalPage, new RegExp(testData.url.extensionFirefoxInstall));
+  await mainPage.expectHaveTitle(externalPage, /Swisscows/);
 });
 
 test("Check that popup firefox install Is Dysplaed", async ({ mainPage }) => {
@@ -31,18 +24,11 @@ test("Check that popup firefox install Is Dysplaed", async ({ mainPage }) => {
 });
 
 test('Check that the "Install Swisscows Block" button redirect to coresponding URL.', async ({
-  mainPage,
-  context,
+  mainPage
 }) => {
-  await mainPage.scrollToInstallSwisscowsBlock();
-  await mainPage.clickInstallSwisscowsBlock();
-
-  const externalPage = await mainPage.switchToAnotherWindow(context);
+  const externalPage = await mainPage.clickInstallSwisscowsBlockAndNavigateToWebStore();
 
   //Assert
-  await mainPage.expectHaveUrl(
-    externalPage,
-    new RegExp(testData.url.extensionFirefoxInstall)
-  );
+  await mainPage.expectHaveUrl( externalPage, new RegExp(testData.url.extensionFirefoxInstall));
   await mainPage.expectHaveTitle(externalPage, /Swisscows/);
 });

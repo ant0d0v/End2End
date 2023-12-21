@@ -11,31 +11,33 @@ export class HeaderStaticPages extends BasePage {
     this.linksOfHeader = (name) => this.page.locator(`a.badge-${name}`);
     this.hamburgerMenu = this.page.locator("header button.hamburger-menu");
     this.charitySearchCounter = this.page.locator("div.badge span");
-    this.badgeEmail = this.page.locator('div.badges a.badge-email');
+    this.badgeEmail = this.page.locator("div.badges a.badge-email");
     this.searchCounter = this.page.locator("//div[@class= 'badge']");
-    this.popupCharitySearchCounter = this.page.getByText("Charity ProjectThis is the");
+    this.popupCharitySearchCounter = this.page.getByText(
+      "Charity ProjectThis is the"
+    );
     this.suggestionItems = this.page.locator("ul.suggestions li");
     this.suggest = this.page.locator("ul.suggestions");
-    this.placeholderMainPage = this.page.getByPlaceholder("Your search. Your business.");
+    this.placeholderMainPage = this.page.getByPlaceholder(
+      "Your search. Your business."
+    );
   }
 
   //Actions
 
-  clickLinkInHeader = async (id) => {
-    await this.clickElement(this.linksOfHeader(id), `link in the header`);
-  };
   clickHamburgerMenuButton = async () => {
     await this.clickElement(
-      this.hamburgerMenu,`hamburger menu in the header static pages`);
+      this.hamburgerMenu,
+      `hamburger menu in the header static pages`
+    );
   };
   clickSearchCounter = async () => {
     await this.clickElement(
-      this.searchCounter,`charity search counter  in the header`);
+      this.searchCounter,
+      `charity search counter  in the header`
+    );
   };
-  clickBadgeEmail = async () => {
-    await this.clickElement(this.badgeEmail, `badge email in the header`);
-  };
-
+ 
   waitToBeVisibleSuggest = async () => {
     await this.waitElementToBeVisible(this.suggest, `suggest`);
   };
@@ -48,6 +50,20 @@ export class HeaderStaticPages extends BasePage {
   };
   inputSearchCriteria = async (text) => {
     await this.input(this.placeholderMainPage, text, `search field`);
+  };
+  clickBadgeEmailAndNavigateToNewPage = async () => {
+    const loginPage = await this.clickElementAndNavigateToNewPage(
+      this.badgeEmail,
+      "badge Email"
+    );
+    return loginPage;
+  };
+  clickLinkInHeaderAndNavigateToNewPage = async (id) => {
+    const newPage = await this.clickElementAndNavigateToNewPage(
+      this.linksOfHeader(id),
+      "link of header"
+    );
+    return newPage;
   };
 
   // Verify

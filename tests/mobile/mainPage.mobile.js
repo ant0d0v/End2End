@@ -25,7 +25,6 @@ test("Check that suggest is displayed", async ({
 test("Check that all questions were opened on the main page.", async ({
   mainPage,
 }) => {
-  await mainPage.scrollToBlockQuestionsAndAnswers();
   await mainPage.clickAllQuestions();
 
   //Assert
@@ -35,35 +34,27 @@ test("Check that all questions were opened on the main page.", async ({
 test("Check that a question and answer can be opened and closed on the main page.", async ({
   mainPage,
 }) => {
-  await mainPage.scrollToBlockQuestionsAndAnswers();
   await mainPage.clickAllQuestions();
-
   //Assert
   await mainPage.expectQuestionsAreOpened();
 
   await mainPage.clickAllQuestions();
-
   //Assert
   await mainPage.expectQuestionsAreClosed();
 });
 
 test("Check that the link in the fourth question leads to the expected URL.", async ({
   mainPage,
-  context,
   defaultSearchPage,
 }) => {
   const expectedH1text = "How to use Swisscows as default search";
 
-  await mainPage.scrollToBlockQuestionsAndAnswers();
   await mainPage.clickFourQuestion();
-  await mainPage.clickLinkInTheFourQuestion();
-  const DefaultSearchPage = await mainPage.switchToAnotherWindow(context);
-
+  const DefaultSearchPage =
+    await mainPage.clickLinkInTheFourQuestionAndNavigateToDefaultSearchPage();
+  
   //Assert
-  await defaultSearchPage.expectHaveUrl(
-    DefaultSearchPage,
-    main.url.defaultSearchPage
-  );
+  await defaultSearchPage.expectHaveUrl( DefaultSearchPage, main.url.defaultSearchPage);
   await defaultSearchPage.expectH1Text(DefaultSearchPage, expectedH1text);
 });
 
@@ -77,26 +68,18 @@ test("Check the texts of questions on the main page.", async ({ mainPage }) => {
     "Our vision is that every user can be online without fear of surveillance, annoying advertising and unwanted data storage. We have been working towards this goal for over 20 years. Fortunately, data security has now become a relevant topic and many people have understood what all happens to their data completely without their knowledge.We don't want to share our users' data, we want to value it. That's why we developed Swisscows, the anonymous search engine, and other products: • TeleGuard - our data secure messenger (WhatsApp alternative) • Swisscows - works like a firewall and also helps to visit websites anonymously • GetDigest - an AI-based program that helps summarize web content and text documents and quickly delivers the relevant information.Our growing team continues to develop and research innovations that protect users and their privacy on the World Wide Web.",
   ];
 
-  await mainPage.scrollToBlockQuestionsAndAnswers();
-  await mainPage.clickAllQuestions();
-  const actualAnswers = await mainPage.getTextsOfAllQuestions();
-
   //Assert
-  await mainPage.expectArraySize(actualAnswers, 6);
-  await mainPage.expectTextsToEqual(actualAnswers, expectedAnswers);
+  await mainPage.expecListSizeAnswerToQuestions(6);
+  await mainPage.expectTextsToEqual(mainPage.answersToQuestions, expectedAnswers);
 });
 
 test("Check that buttons have hover over the services block on main page", async ({
   mainPage,
 }) => {
   const expectedColorWhenHovering = "rgb(223, 93, 93)";
-  await mainPage.scrollToServicesBlock();
 
   //Assert
-  await mainPage.expectColorsLinksWhenHovering(
-    mainPage.buttonOfServiceBlock,
-    expectedColorWhenHovering
-  );
+  await mainPage.expectColorsLinksWhenHovering( mainPage.buttonOfServiceBlock, expectedColorWhenHovering);
 });
 
 test("Check design of the main page ", async ({ mainPage }) => {
@@ -123,8 +106,7 @@ test("Check design dark theme of the main page ", async ({
 test("Check that images are dysplaed of the service block", async ({
   mainPage,
 }) => {
-  await mainPage.scrollToServicesBlock();
-
+  
   //Assert
   await mainPage.expectImagesOfSrviceBlockAreDisplayed();
 });
